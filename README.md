@@ -52,3 +52,8 @@ There's no need to read through all of these resources but keep them handy when 
   2. [Effective Go](https://golang.org/doc/effective_go.html) : All the basic data types, control structures, style guide explained through examples.
   3. [A Tour of Go](https://tour.golang.org/welcome/1): An interactive tutorial for playing with Go
   4. [Go Playground](https://play.golang.org/) : A useful resource to write code in the browser
+
+
+# Licensing
+Saigo is released by [Enova](http://www.enova.com) under the
+[MIT License](https://github.com/enova/saigo/blob/master/LICENSE).
