@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Play - goCars</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="./public/vendor/bootstrap-3.3.6/css/bootstrap-theme.min.css" rel="stylesheet" media="all">
+    <link href="./public/vendor/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="./public/css/screen.css" rel="stylesheet" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+      <div class="navbar-header">
+        <a class="navbar-brand topnav" href="/">goCars!</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <div class="nav-disconnect">
+          <a class="btn btn-primary btn-block" href="/exit">Disconnect</a>
+        </div>
+        <div class="nav-username">
+          Connected as: <span>{{ .Username }}</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="content-wrap">
+    <div class="container">
+
+      <div class="row row-play">
+        <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+          <h1>Add Your Vehicles</h1>
+          <p></p>
+
+          <form class="form-inline" action="/add" method="POST">
+            <div class="row row-add">
+              <div class="col-xs-12 col-md-6 form-group">
+                <select name="vehicle" class="form-control">
+              		<option value="jeep">Jeep</option>
+              		<option value="bike">Bike</option>
+              		<option value="boat">Boat</option>
+            	  </select>
+              </div>
+
+              <div class="col-xs-12 col-md-6 form-group">
+                <select name="speed" class="form-control">
+              		<option value="slow">Slow But Reliable</option>
+              		<option value="fast">Fast And Furious</option>
+              		<option value="rage">Road Rage</option>
+            	  </select>
+              </div>
+
+              <div class="col-xs-12 form-group">
+                <button type="submit" class="btn btn-primary btn-submit btn-block">Add</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <tr>
+                <th>#</th>
+                <th>Vehicle</th>
+                <th>Count</th>
+              </tr>
+              {{ range .Vehicles.List }}
+              <tr>
+                <th scope="row">x</th>
+                <td>{{ .Name }}</td>
+                <td>{{ .Count }}</td>
+              </tr>
+              {{ end }}
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-sandbox">
+        <div class="col-sm-7 col-sm-offset-2">
+          <canvas id="canvas" width="600" height="400"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <p class="copyright text-muted small">Copyright &copy; goCars! 2032. All rights thrown out the window.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./public/js/sandbox.js"></script>
+  <script type="text/javascript">
+    window.onload = function() {
+      console.log('I am loaded!');
+
+      var vehicles = {{ .Vehicles.List }} || [];
+      sandbox = new VehicleSandbox(vehicles);
+
+      sandbox.animate();
+      setInterval(function(){
+        sandbox.animate();
+      }, 100);
+    }
+  </script>
+</body>
+</html>
