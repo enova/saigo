@@ -18,7 +18,9 @@ The Saigo exercises are intended to be a tool for the instructor. Experienced de
 to use them as a way to jump right in the pool. However, to get the most out of them it is recommended that
 learners find an instructor.
 
-The [first](https://github.com/enova/saigo/tree/master/exercise-000-prep) exercise asks learners to look over Caleb
+Some of the exercises may require serveral days to complete. Learners should consider building solutions incrementally and meeting with their instructor between iterations. 
+
+The [first](https://github.com/enova/saigo/tree/master/exercise-000-prep) exercise asks learners to go through Caleb
 Doxsey's book [An Introduction to Programming in Go](https://www.golang-book.com/books/intro). Learners should schedule regular
 meetings with an instructor during the course of this book to ask questions, seek clarifications, and talk about Go!
 
