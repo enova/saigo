@@ -13,3 +13,5 @@ Here is the recommended practice for learners and instructors:
   2. Present your solutions to the instructor
 
 During the session your instructor may choose to ask you additional questions about the material.
+
+Chapter 13 is also recommended before starting [Exercise 1](https://github.com/enova/saigo/tree/master/exercise-001-corpus)
