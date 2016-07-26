@@ -8,7 +8,7 @@ Your job is to complete the implementation.
 
 The client has included a skeleton under the package name `models` that included structures for `Customer`,`Product` and `Order`.
 
-```
+```go
 type Customer struct {
     ID        int
     Email     string
@@ -34,7 +34,7 @@ type Order struct {
 
 Along with these structures the client has added a collection of stubbed functions:
 
-```
+```go
 func (c *Customer) Refresh(db *sqlx.DB) error
 
 func NewCustomer(db *sqlx.DB, email, first, last string, born time.Time) (*Customer, error)
