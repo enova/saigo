@@ -37,7 +37,7 @@ func (g *Game) RoundRobin() {
 	for i := 0; i < n-1; i++ {
 
 		// For Each Opponent
-		for j := i+1; j < n; j++ {
+		for j := i + 1; j < n; j++ {
 
 			a := g.players[i]
 			b := g.players[j]
@@ -52,7 +52,7 @@ func (g *Game) RoundRobin() {
 			case winner == 1:
 				g.points[i]++
 			case winner == -1:
-				g.points[j]++			
+				g.points[j]++
 			}
 		}
 	}
