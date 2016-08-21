@@ -17,7 +17,7 @@ func Winner(moveA int, moveB int) int {
 	case moveA == Scissors && moveB == Paper:
 		return 1
 
-		// Move-B Wins!
+	// Move-B Wins!
 	case moveA == Scissors && moveB == Rock:
 		return -1
 	case moveA == Rock && moveB == Paper:
