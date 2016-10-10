@@ -35,7 +35,6 @@
   ```bash
   gvm use go1.4
   ```
-  If so,
 
   Read about the Go command from the Go documentation: https://golang.org/doc/articles/go_command.html
 
