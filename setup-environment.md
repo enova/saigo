@@ -19,11 +19,23 @@
   ```bash
   gvm install go1.4
   ```
+
+  Newer versions of OSX may cause the initial build to fail. If so, just rerun the installation with the binary attribute added.
+
+  ```bash
+  gvm install go1.4 -B
+  ```
+
+  as is recommended here:
+  https://github.com/moovweb/gvm/issues/217
+
+
   3. Tell GVM which Go version to use
 
   ```bash
   gvm use go1.4
   ```
+  If so,
 
   Read about the Go command from the Go documentation: https://golang.org/doc/articles/go_command.html
 
