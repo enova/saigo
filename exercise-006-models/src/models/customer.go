@@ -12,10 +12,10 @@ type Customer struct {
 	Email     string
 	FirstName string
 	LastName  string
-	BirthDate date
+	BirthDate time.Time
 	Orders    []*Order
 	CreatedAt time.Time
-	Updatedat time.Time
+	UpdatedAt time.Time
 }
 
 // Refresh ...
@@ -24,7 +24,7 @@ func (c *Customer) Refresh(db *sqlx.DB) error {
 }
 
 // NewCustomer ...
-func NewCustomer(db *sqlx.DB, email string, first_name string, last_name string, birth_date date) (*Customer, error) {
+func NewCustomer(db *sqlx.DB, email string, first_name string, last_name string, birth_date time.Time) (*Customer, error) {
 	return nil, nil
 }
 
