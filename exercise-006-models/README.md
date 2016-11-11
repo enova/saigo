@@ -14,8 +14,10 @@ type Customer struct {
     Email     string
     FirstName string
     LastName  string
-    BirthDate date
+    BirthDate time.Time
     Orders    []*Order
+    CreatedAt time.Time
+    UpdatedAt time.Time
 }
 
 type Product struct {
@@ -37,7 +39,7 @@ Along with these structures the client has added a collection of stubbed functio
 ```go
 func (c *Customer) Refresh(db *sqlx.DB) error
 
-func NewCustomer(db *sqlx.DB, email, first, last string, born time.Time) (*Customer, error)
+func NewCustomer(db *sqlx.DB, email, first_name, last_name string, birth_date time.Time) (*Customer, error)
 func DeleteCustomer(db *sqlx.DB, id int) error
 func UpdateCustomer(db *sqlx.DB, u *Customer) error
 func FindCustomerByEmail(db *sqlx.DB, email string) (*Customer, error)
