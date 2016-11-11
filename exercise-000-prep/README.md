@@ -1,6 +1,8 @@
 ## Prepare!
 
-You will read through the first nine chapters of Caleb Doxsey's [An Introduction to Programming in Go](https://www.golang-book.com/books/intro) and discuss the material with an instructor.
+You will read chapters 2 - 10 and portions of chapter 13 of Caleb Doxsey's [An Introduction to Programming in Go](https://www.golang-book.com/books/intro) and discuss the material with an instructor.
+
+Try to cover chapters 2 through 10 in their entirety. In chapter 13 the most relevant sections are _Strings_, _Files & Folders_ and _Sort_.
 
 ## Recommended Practice
 
@@ -13,5 +15,3 @@ Here is the recommended practice for learners and instructors:
   2. Present your solutions to the instructor
 
 During the session your instructor may choose to ask you additional questions about the material.
-
-Chapter 13 is also recommended before starting [Exercise 1](https://github.com/enova/saigo/tree/master/exercise-001-corpus)
