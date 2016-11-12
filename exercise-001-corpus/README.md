@@ -50,9 +50,41 @@ import (
   "github.com/topcoder1/histogram"
 )
 ```
+## (Recommended) Directory Structure
+
+Within your project directory there should be three files, two under a subdirectory named `corpus` (this is the package name):
+
+```
+corpus/corpus.go
+corpus/corpus_test.go
+word_count.go
+```
+
+The first two files within the `corpus/` directory are part of the `corpus` package you are building. Every Go file in that directory should start with `package corpus`. The filenames themselves can be arbitrary. Test-Code should reside in filenames ending in `_test.go`. The third file `word_count.go` will contain your executable code and should begin with `package main`.
+
+Within the project directory run `go build word_count.go` to create a (binary) executable `word_count`. You can then run your executable from the console `./word_count 7oldsamr.txt`.
 
 ## Testing
-Please include a test of your software that runs with `go test ./...`
+Please include a test of your software that runs with `go test ./...` The [testify/assert](http://github.com/stretchr/testify) package is a testing package that is widely used by the Go community, and we recommend using it for all Saigo exercises. For example:
+
+```go
+corpus_test.go
+--------------
+
+package corpus
+
+import (
+  "testing"
+  "github.com/stretchr/testify/assert"
+)
+
+func TestCorpus(t *testing.T) {
+  result := corpus.Analyze("Are you serious? I knew you were.")
+  assert.Equal(len(result), 5)
+  assert.Equal(result[0].Word, "you")
+  assert.Equal(result[0].Count, 2)
+}
+```
 
 ## Benchmarking (Optional)
 Try to use the Go [benchmarking](http://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go) tools that run with `go test -bench=.` 
