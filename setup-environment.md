@@ -33,13 +33,9 @@
   3. Tell GVM which Go version to use
 
   ```bash
-  gvm use go1.4
+  gvm use go1.4 --default
   ```
-  You will probably want to add this to your `.bashrc` like this:
-  
-  ```
-  gvm use go1.4 &> /dev/null
-  ```
+
   Read about the Go command from the Go documentation: https://golang.org/doc/articles/go_command.html
 
   4. Create your `GOPATH` directory:
