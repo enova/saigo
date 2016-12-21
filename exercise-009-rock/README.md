@@ -58,7 +58,7 @@ Your task is to add three new player types to the game:
 
 The new `rock.go` should look something like this:
 
-```
+```go
 package main
 
 func main() {
