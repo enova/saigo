@@ -1,27 +1,4 @@
-# Go tools
-
-## Set up
-
-First, let's reorganize the code from the previous exercise into this file structure:
-
-```bash
-└── src
-    ├── cmd
-    │   └── word_count
-    │       └── word_count.go
-    └── words
-        ├── corpus.go
-        └── corpus_test.go
-```
-
-Make sure `word_count.go` uses `package main` because executable commands must always use `package main`. All files under `src/words` will use `package words`.
-
-Make sure you can still run your code and tests still pass:
-```bash
-$ go install ./src/...
-$ word_count path/to/text
-$ go test ./src/words
-```
+# Go Tools
 
 By installing Go, you now have a basic set of tools that will help you maintain your code format and style. These tools are simple in design, but powerful in function. Here are several that will be invaluable during your time with Go.
 
@@ -29,17 +6,13 @@ By installing Go, you now have a basic set of tools that will help you maintain 
 
 Gofmt simply formats Go programs. Given a file, it operates on that file; given a directory, it operates on all .go files in that directory, recursively.
 
-View the changes that gofmt would make to your code:
-```bash
-$ gofmt -d .
-```
+Apply gofmt's changes to your current directory (and all its subdirectories):
 
-Apply gofmt's changes to your files:
 ```bash
 $ gofmt -w .
 ```
 
-Read about the different flags that can be used to control the output at https://golang.org/cmd/gofmt/.
+This command will modify all existing Go files under the current directory. This is really the only version of the command you will probably ever use. Most developers actually have this command wired into their IDE so that whenever they hit save, the code is instantly formatted.
 
 ## Golint
 
@@ -47,15 +20,14 @@ Gofmt already takes care of whitespace-related style questions, but it cannot co
 
 Golint does not emit errors or warnings, but “suggestions”: These suggestions can be wrong at times, and code that golint complains about isn’t necessarily wrong – it might just be hitting a false positive. Nevertheless, it’s more often right than wrong, and you should definitely run golint on your code from time to time and fix those suggestions that it is right about.
 
-You can read more about it at https://github.com/golang/lint.
+Install and run golint over your current directory:
 
-#### Install
 ```bash
 $ go get github.com/golang/lint/golint
 $ golint ./...
 ```
 
-Fix any issues raised by golint.
+Fix any issues raised by golint. You can read more about it at https://github.com/golang/lint.
 
 ## Go vet
 
@@ -76,6 +48,8 @@ Go comes with its own linter, go vet, for analysing Go code and finding common m
 * Misuse of unsafe.Pointer
 * Mistakes involving boolean operators
 
+Run go vet over your current directory:
+
 ```bash
 $ go vet ./...
 ```
@@ -87,11 +61,13 @@ Fix any issues raised by go vet.
 Code coverage reports provide a quick and easy way of finding untested code. Go’s support for these reports consists of two components: Support in go test for generating coverage profiles and go tool cover to generate reports from it.
 
 Set the -coverprofile option while running `go test` and it will generate a coverage profile:
+
 ```bash
 go test ./src/words -coverprofile=coverage.out
 ```
 
 You can then pass the profile to `go tool cover` and generate different kinds of reports. If you want per-function coverage, you can use the `-func` flag.
+
 ```bash
 go tool cover -func=coverage.out
 ```
