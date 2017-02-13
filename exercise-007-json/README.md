@@ -47,7 +47,7 @@ func main() {
 }
 ```
 
-This code is from [exhibit-a](). Run the code in the console:
+This code is from [exhibit-a](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-a). Run the code in the console:
 
 ```
 exercise-007-json $ go run exhibit-a/app.go
@@ -58,10 +58,10 @@ Try using this method in place of `json.Marshal` in the code and see the output.
 
 Read the code in each of the following directories and explain them back to an instructor:
 
-1. [exhibit-a]() Marshal
-1. [exhibit-b]() Tags
-1. [exhibit-c]() Unmarshal
-1. [exhibit-d]() JSON API!
+1. [exhibit-a](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-a) Marshal
+1. [exhibit-b](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-b) Tags
+1. [exhibit-c](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-c) Unmarshal
+1. [exhibit-d](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-d) JSON API!
 
 ## Engineering Tasks
 
