@@ -47,7 +47,7 @@ func main() {
 }
 ```
 
-This code is from [exhibit-a](). Run the code in the console:
+This code is from [exhibit-a](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-a). Run the code in the console:
 
 ```
 exercise-007-json $ go run exhibit-a/app.go
@@ -58,14 +58,14 @@ Try using this method in place of `json.Marshal` in the code and see the output.
 
 Read the code in each of the following directories and explain them back to an instructor:
 
-1. [exhibit-a]() Marshal
-1. [exhibit-b]() Tags
-1. [exhibit-c]() Unmarshal
-1. [exhibit-d]() JSON API!
+1. [exhibit-a](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-a) Marshal
+1. [exhibit-b](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-b) Tags
+1. [exhibit-c](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-c) Unmarshal
+1. [exhibit-d](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-d) JSON API!
 
 ## Engineering Tasks
 
-In [exhibit-d](), notice how much of the data in the JSON file is discarded when populating phone data:
+In [exhibit-d](https://github.com/enova/saigo/tree/master/exercise-007-json/exhibit-d), notice how much of the data in the JSON file is discarded when populating phone data:
 
 ```go
 package main
@@ -109,7 +109,8 @@ func main() {
 }
 ```
 
-Complete the following tasks:
+Only one attribute (`Name`) is being unmarshalled. Your job is to expand the `Phone` structure so that the unmarshalling will read the other attributes from the file and store them in the `Phone` slice.
 
-1. Read the other attributes from the file and store them in the `Phone` slice.
-2. Create a database table for phones. When the server is started, if the table is empty, seed the table with the phones from the json file. The /phones endpoint should then return whatever records are found in the phones table.
+### Optional
+
+Create a database table for phones. When the server is started, if the table is empty, seed the table with the phones from the json file. The /phones endpoint should then return whatever records are found in the phones table.
