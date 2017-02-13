@@ -19,7 +19,7 @@ type Element struct {
 func main() {
 	data, err := ioutil.ReadFile("exhibit-c/chemistry.json")
 	if err != nil {
-		panic("Error reading phones.json")
+		panic("Error reading file")
 	}
 
 	e := Element{}
