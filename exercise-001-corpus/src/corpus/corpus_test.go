@@ -1,8 +1,8 @@
 package corpus
 
 import (
-    "testing"
-    "fmt"
+	"fmt"
+	"testing"
 )
 
 func TestWordCount(t *testing.T) {
