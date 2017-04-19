@@ -46,15 +46,18 @@ only to find your solution has issues. Even learning can be agile.
 
 Be ready to demo your application when it is completed. Instructors want to see it in action!
 
-## Recommended Resources
+## Resources
 
-There's no need to read through all of these resources but keep them handy when you need a reminder.
+Here are some additional resources for those new to Go:
 
-  1. [How to Write Go Code](https://golang.org/doc/code.html): This document demonstrates the development of a simple Go package and introduces the go tool, the standard way to fetch, build, and install Go packages and commands.
-  2. [Effective Go](https://golang.org/doc/effective_go.html) : All the basic data types, control structures, style guide explained through examples.
-  3. [A Tour of Go](https://tour.golang.org/welcome/1): An interactive tutorial for playing with Go
-  4. [Go Playground](https://play.golang.org/) : A useful resource to write code in the browser
+  1. [Go Playground](https://play.golang.org/) : A useful resource to write code in the browser
+  2. [How to Write Go Code](https://golang.org/doc/code.html): This document demonstrates the development of a simple Go package and introduces the go tool, the standard way to fetch, build, and install Go packages and commands.
+  3. [Effective Go](https://golang.org/doc/effective_go.html) : All the basic data types, control structures, style guide explained through examples.
+  4. [A Tour of Go](https://tour.golang.org/welcome/1): An interactive tutorial for playing with Go
+  
+## Coding-Style
 
+Another brilliant move by the creators of Go is writing the [gofmt](https://golang.org/cmd/gofmt/) tool that formats Go code into a common style (it actually does much more than this under the hood!). In addition to this developers should look over the Go community's code-writing [standards](https://github.com/golang/go/wiki/CodeReviewComments).
 
 # Licensing
 Saigo is released by [Enova](http://www.enova.com) under the
