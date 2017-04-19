@@ -15,43 +15,101 @@ func Check(e error) {
 }
 
 func WordCount(file_name string) {
-	word_dict := make(map[string]int)
+	counts := make(map[string]int)
 
 	file, err := os.Open(file_name)
 	Check(err)
 
-	scan_this := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(file)
 
-	var delimiters = strings.NewReplacer("\"", "", ".", "", ",", "")
+	var delimiters = strings.NewReplacer("\"", "", ".", "", ",", "", "?", "")
 
-	for scan_this.Scan() {
-		line := scan_this.Text()
+	for scanner.Scan() {
+		line := scanner.Text()
 		line = delimiters.Replace(line)
-		words := strings.Split(line, " ")
-		for i := 0; i < len(words); i++ {
-			if freq, ok := word_dict[words[i]]; ok {
-				word_dict[words[i]] = freq + 1
+		words := strings.Fields(line)
+		for _, word := range words {
+			if _, ok := counts[word]; ok {
+				counts[word]++
 			} else {
-				word_dict[words[i]] = 1
+				counts[word] = 1
 			}
 		}
-		delete(word_dict, "")
 	}
 
-	n := map[int][]string{}
-	var a []int
-	for k, v := range word_dict {
-		n[v] = append(n[v], k)
+	sortedWords := sortByWordCount(counts)
+	for _, v := range sortedWords {
+		fmt.Println(v)
 	}
-	for k := range n {
-		a = append(a, k)
+}
+
+type Count struct {
+	word string
+	freq int
+}
+
+type lessFunc func(p1, p2 *Count) bool
+
+type multiSorter struct {
+	counts []Count
+	less   []lessFunc
+}
+
+func (ms *multiSorter) Sort(counts []Count) {
+	ms.counts = counts
+	sort.Sort(ms)
+}
+
+func OrderedBy(less ...lessFunc) *multiSorter {
+	return &multiSorter{
+		less: less,
 	}
-	sort.Sort(sort.Reverse(sort.IntSlice(a)))
-	for _, k := range a {
-		for _, s := range n[k] {
-			fmt.Printf("%s -> %d\n", s, k)
+}
+
+func (ms *multiSorter) Len() int {
+	return len(ms.counts)
+}
+
+func (ms *multiSorter) Swap(i, j int) {
+	ms.counts[i], ms.counts[j] = ms.counts[j], ms.counts[i]
+}
+
+func (ms *multiSorter) Less(i, j int) bool {
+	p, q := &ms.counts[i], &ms.counts[j]
+	var k int
+	for k = 0; k < len(ms.less)-1; k++ {
+		less := ms.less[k]
+		switch {
+		case less(p, q):
+			return true
+		case less(q, p):
+			return false
 		}
 	}
+	return ms.less[k](p, q)
+}
+
+type ByFreq []Count
+
+func sortByWordCount(wordCounts map[string]int) ByFreq {
+	words := func(c1, c2 *Count) bool {
+		return c1.word < c2.word
+	}
+
+	freq := func(c1, c2 *Count) bool {
+		return c1.freq > c2.freq
+	}
+
+	b := make(ByFreq, len(wordCounts))
+	i := 0
+
+	for k, v := range wordCounts {
+		b[i] = Count{k, v}
+		i++
+	}
+
+	OrderedBy(freq, words).Sort(b)
+	return b
 }
 
 func main() {
