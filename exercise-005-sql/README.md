@@ -19,7 +19,7 @@ CREATE TABLE people (
 ## Comprehension Tasks
 
 The standard Go distribution includes a `database/sql` package with implementations for various databases, including PostgreSQL.
-A nice extension to `database/sql` is the [`sqlx`](github.com/jmoiron/sqlx) package that uses some reflection to create a slightly
+A nice extension to `database/sql` is the [`sqlx`](https://github.com/jmoiron/sqlx) package that uses some reflection to create a slightly
 prettier interface.
 
 Check out the code in [exhibit-a]():
@@ -43,6 +43,7 @@ func PanicOn(err error) {
 func main() {
 	db, err := sql.Open("postgres", "dbname=test sslmode=disable")
 	PanicOn(err)
+	defer db.Close()
 
 	_, err = db.Exec("INSERT INTO people(name, ssn) VALUES ($1, $2)", "Bruce Leroy", 111223333)
 	PanicOn(err)
@@ -52,6 +53,7 @@ func main() {
 
 	rows, err := db.Query("SELECT person_id, name, ssn FROM people")
 	PanicOn(err)
+	defer rows.Close()
 
 	for rows.Next() {
 		var id int
