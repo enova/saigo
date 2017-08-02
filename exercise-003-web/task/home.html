@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <title> My first server! </title>
+    <body>
+        <h4> Enter your name here </h4>
+        <form action="addName" method="POST">
+            <input type="text" name="name" placeholder="Name">
+            <input type="submit" value="Store">
+        </form>
+        <br>
+        <br>
+        <h4> Names </h4>
+        {{range $index, $name := .}}
+            {{$name}}<br/>
+        {{end}}
+    </body>
