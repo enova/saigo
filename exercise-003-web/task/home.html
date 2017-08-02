@@ -10,7 +10,7 @@
         <br>
         <br>
         <h4> Names </h4>
-        {{range .}}
-            {{.Name}}<br/>
+        {{range $index, $name := .}}
+            {{$name}}<br/>
         {{end}}
     </body>
