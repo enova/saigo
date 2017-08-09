@@ -8,8 +8,10 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sync"
 )
 
+var mutex = &sync.Mutex{}
 var users = make(map[string]int)
 var usersPath, _ = filepath.Abs("./users.txt")
 var indexPath, _ = filepath.Abs("./index.html")
@@ -22,7 +24,9 @@ func index(w http.ResponseWriter, r *http.Request) {
 func addUser(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	user := r.Form.Get("username")
+	mutex.Lock()
 	users[user]++
+	mutex.Unlock()
 
 	file, err := os.OpenFile(usersPath, os.O_APPEND|os.O_WRONLY, 0777)
 	if err != nil {
