@@ -18,7 +18,9 @@ var indexPath, _ = filepath.Abs("./index.html")
 var indexT = template.Must(template.ParseFiles(indexPath))
 
 func index(w http.ResponseWriter, r *http.Request) {
+	mutex.Lock()
 	indexT.Execute(w, &users)
+	mutex.Unlock()
 }
 
 func addUser(w http.ResponseWriter, r *http.Request) {
