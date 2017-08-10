@@ -26,17 +26,16 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 	user := r.Form.Get("username")
 	mutex.Lock()
 	users[user]++
-	mutex.Unlock()
 
 	file, err := os.OpenFile(usersPath, os.O_APPEND|os.O_WRONLY, 0777)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file.Close()
 	writer := bufio.NewWriter(file)
 	fmt.Fprintln(writer, user)
 	writer.Flush()
-
+	file.Close()
+	mutex.Unlock()
 	index(w, nil)
 }
 
