@@ -6,7 +6,7 @@ For Mac OS X users the simplest way to install Go is to use [homebrew](https://b
 $ brew install go
 ```
 
-One installed you should probably do the following steps (not entirely necessary, but recommended):
+Once installed you should probably do the following steps (not entirely necessary, but recommended):
 
 ### Step 1: Set Your `GOPATH`
 
