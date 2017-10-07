@@ -3,23 +3,24 @@ package corpus
 import (
 	"fmt"
 	"io/ioutil"
-	// "sort"
+	"sort"
 	"strings"
   "regexp"
 )
 
-func PrintWords(filename string) int {
+func PrintWords(filename string) {
   str := loadFile(filename)
   words := prepText(str)
-
-
   f := countOccurrences(words)
+  printSorted(f)
+}
 
-  for k, v := range f {
-    fmt.Printf("%[1]d %[2]s\n", v, k)
+func loadFile(filename string) string {
+  bs, err := ioutil.ReadFile(filename)
+  if err != nil {
+    fmt.Println(err)
   }
-
-  return len(f)
+  return string(bs)
 }
 
 func prepText(str string) []string {
@@ -54,10 +55,34 @@ func countOccurrences(words []string) map[string]int {
   return frequencies
 }
 
-func loadFile(filename string) string {
-  bs, err := ioutil.ReadFile(filename)
-  if err != nil {
-    fmt.Println(err)
+func printSorted(m map[string]int) {
+  type kv struct {
+          Key   string
+          Value int
+      }
+
+  var ss []kv
+  for k, v := range m {
+      ss = append(ss, kv{k, v})
   }
-  return string(bs)
+
+  sort.Slice(ss, func(i, j int) bool {
+    if ss[i].Value == ss[j].Value{
+      return compareWords(ss[i].Key, ss[j].Key)
+    }
+    return ss[i].Value > ss[j].Value
+
+  })
+
+  // return ss
+  for _, kv := range ss {
+        fmt.Printf("%d %s\n", kv.Value, kv.Key)
+  }
+}
+
+func compareWords(w1, w2 string) bool {
+  if w1 < w2 {
+    return true
+  }
+  return false
 }
