@@ -8,25 +8,21 @@ import (
   "regexp"
 )
 
-func LoadFile(filename string) int {
-	bs, err := ioutil.ReadFile(filename)
-	if err != nil {
-		fmt.Println(err)
-	}
-	str := string(bs)
-  str = prepText(str)
+func PrintWords(filename string) int {
+  str := loadFile(filename)
+  words := prepText(str)
 
-  words := strings.Split(str, " ")
 
   f := countOccurrences(words)
 
-  fmt.Println("Occurrences:")
-  fmt.Println(f["off"])
-  return len(words)
-  // return words.count check how to do this for arrays and slices
+  for k, v := range f {
+    fmt.Printf("%[1]d %[2]s\n", v, k)
+  }
+
+  return len(f)
 }
 
-func prepText(str string) string {
+func prepText(str string) []string {
    //get rid of all white space
   r := regexp.MustCompile("[\t\n\f\r ]+")
   str = r.ReplaceAllString(str, " ")
@@ -35,7 +31,13 @@ func prepText(str string) string {
   r = regexp.MustCompile("[!-/:-@[-`{-~]+")
   str = r.ReplaceAllString(str, "")
 
-  return str
+  //split string into words
+  words := strings.Split(str, " ")
+  for i := 0; i < len(words); i++ {
+    words[i] = strings.ToLower(words[i])
+  }
+
+  return words
 }
 
 func countOccurrences(words []string) map[string]int {
@@ -50,4 +52,12 @@ func countOccurrences(words []string) map[string]int {
   }
 
   return frequencies
+}
+
+func loadFile(filename string) string {
+  bs, err := ioutil.ReadFile(filename)
+  if err != nil {
+    fmt.Println(err)
+  }
+  return string(bs)
 }
