@@ -10,12 +10,16 @@ import (
 
 func PrintWords(filename string) {
   str := loadFile(filename)
-  words := prepText(str)
-  f := countOccurrences(words)
-  sorted := sortWords(f)
+  sorted := FrequencyFactory(str)
   for _, Count := range sorted {
     fmt.Printf("%d %s\n", Count.Freq, Count.Word)
   }
+}
+
+func FrequencyFactory(str string) []Count {
+  words := prepText(str)
+  f := countOccurrences(words)
+  return sortWords(f)
 }
 
 func loadFile(filename string) string {
@@ -27,6 +31,9 @@ func loadFile(filename string) string {
 }
 
 func prepText(str string) []string {
+  //trim leading and trailing white space
+  str = strings.TrimSpace(str)
+
    //get rid of all white space
   r := regexp.MustCompile("[\t\n\f\r ]+")
   str = r.ReplaceAllString(str, " ")
@@ -46,7 +53,7 @@ func prepText(str string) []string {
 
 func countOccurrences(words []string) map[string]int {
   frequencies := make(map[string]int)
-  for i := 1; i < len(words); i++{
+  for i := 0; i < len(words); i++{
     //check if word exists in map
     if v, ok := frequencies[words[i]]; ok {
       frequencies[words[i]] = v + 1
