@@ -12,7 +12,10 @@ func PrintWords(filename string) {
   str := loadFile(filename)
   words := prepText(str)
   f := countOccurrences(words)
-  printSorted(f)
+  sorted := sortWords(f)
+  for _, Count := range sorted {
+    fmt.Printf("%d %s\n", Count.Freq, Count.Word)
+  }
 }
 
 func loadFile(filename string) string {
@@ -55,29 +58,25 @@ func countOccurrences(words []string) map[string]int {
   return frequencies
 }
 
-func printSorted(m map[string]int) {
-  type kv struct {
-          Key   string
-          Value int
-      }
+type Count struct {
+  Word string
+  Freq int
+}
 
-  var ss []kv
+func sortWords(m map[string]int) []Count {
+  var ss []Count
   for k, v := range m {
-      ss = append(ss, kv{k, v})
+      ss = append(ss, Count{k, v})
   }
 
   sort.Slice(ss, func(i, j int) bool {
-    if ss[i].Value == ss[j].Value{
-      return compareWords(ss[i].Key, ss[j].Key)
+    if ss[i].Freq == ss[j].Freq{
+      return compareWords(ss[i].Word, ss[j].Word)
     }
-    return ss[i].Value > ss[j].Value
-
+    return ss[i].Freq > ss[j].Freq
   })
 
-  // return ss
-  for _, kv := range ss {
-        fmt.Printf("%d %s\n", kv.Value, kv.Key)
-  }
+  return ss
 }
 
 func compareWords(w1, w2 string) bool {
