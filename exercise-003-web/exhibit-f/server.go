@@ -6,8 +6,14 @@ import (
 	"net/http"
 )
 
+//User that signs up for this great app
+type User struct {
+	Name        string
+	Submissions int
+}
+
 var homeT = template.Must(template.ParseFiles("exhibit-f/home.html"))
-var users []string
+var users map[string]int
 
 func home(w http.ResponseWriter, r *http.Request) {
 	homeT.Execute(w, nil)
@@ -16,16 +22,25 @@ func home(w http.ResponseWriter, r *http.Request) {
 func signup(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := r.Form.Get("username")
-	users = append(users, username)
+
+	if _, ok := users[username]; ok {
+		users[username] = users[username] + 1
+	} else {
+		users[username] = 1
+	}
+	// users = append(users, username)
 	fmt.Fprint(w, "People using this wonderful form: \n")
-	for i, user := range users {
-		fmt.Fprintf(w, "%d. %s\n", i+1, user)
+	fmt.Fprint(w, "Name\tSubmissions\n")
+	for user, submissions := range users {
+		fmt.Fprintf(w, "%s\t%d\n", user, submissions)
 	}
 
 }
 
 func main() {
+	users = make(map[string]int)
 	http.HandleFunc("/home", home)
 	http.HandleFunc("/signup", signup)
 	http.ListenAndServe(":8080", nil)
+
 }

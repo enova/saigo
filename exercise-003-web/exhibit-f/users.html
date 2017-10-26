@@ -10,8 +10,10 @@
         <th>Submissions</th>
       </tr>
       <tr>
-        <td>{{ .Username }}</td>
-        <td>{{ .Submissions }}</td>
+        {{range .}}
+          <td>{{ .Name }}</td>
+          <td>{{ .Submissions }}</td>
+        {{end}}
       </tr>
     </table>
   </body>
