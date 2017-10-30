@@ -6,19 +6,40 @@
   </head>
 
   <body>
-    <h2>People using this wonderful application:</h2>
-    <table class="table">
-      <tr>
-        <th>User</th>
-        <th>Submissions</th>
-      </tr>
-      {{range .}}
-      <tr>
-        <td>{{ .Name }}</td>
-        <td>{{ .Submissions }}</td>
-      </tr>
-     {{end}}
-    </table>
+    <div class="container">
+      <div class="row">
+        <h2>People using this wonderful application:</h2>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <table class="table">
+            <tr>
+              <th>User</th>
+              <th>Submissions</th>
+            </tr>
+            {{range .}}
+            <tr>
+              <td>{{ .Name }}</td>
+              <td>{{ .Submissions }}</td>
+            </tr>
+           {{end}}
+
+           <tr>
+             <td>
+               <form action="/clear" method="POST">
+                 <button type="submit">Clear</button>
+               </form>
+             </td>
+             <td>
+               <form action="/home" method="POST">
+                 <button type="submit">Home</button>
+               </form>
+             </td>
+           </tr>
+          </table>
+        </div>
+      </div>
+    </div>
   </body>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

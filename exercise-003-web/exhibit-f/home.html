@@ -5,14 +5,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container">
-      <h2>Get on our list</h2>
-      <form action="/signup" method="POST">
-        <div class="form-group">
-          <input type="text" name="username" placeholder="Enter your name">
-          <input type="submit" value="Submit"/>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col p-3 mb-2 bg-primary text-white">
+          <h1>Give us your name</h1>
         </div>
-      </form>
+      </div>
+
+      <div class="row">
+        <div class="col-md">
+          <form action="/signup" method="POST">
+            <div class="form-group">
+              <input type="text" name="username" placeholder="Enter your name">
+              <input type="submit" value="Submit"/>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
