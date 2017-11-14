@@ -50,7 +50,7 @@ func wordList(text string) []Words {
 		wordSlice = append(wordSlice, Words{word, count})
 	}
 
-	return word_arr
+	return wordSlice
 }
 
 func outputWords(words []Words) {
