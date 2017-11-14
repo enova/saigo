@@ -9,18 +9,20 @@ import (
 	"strings"
 )
 
+//Words creates a word struct to store a word and how many times it appears
 type Words struct {
 	Word  string
 	Count int
 }
 
+//ByCount sorts all words by how many times they appear
 type ByCount []Words
 
 func (a ByCount) Len() int           { return len(a) }
 func (a ByCount) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByCount) Less(i, j int) bool { return a[i].Count > a[j].Count }
 
-func clean_string(str string) string {
+func cleanString(str string) string {
 	str = strings.ToLower(str)
 	str = strings.TrimSpace(str)
 	reg := regexp.MustCompile("[\t\n\f\r ]+")
@@ -30,11 +32,11 @@ func clean_string(str string) string {
 	return str
 }
 
-func word_list(text string) []Words {
+func wordList(text string) []Words {
 	words := make(map[string]int)
-	text_arr := strings.Split(text, " ")
+	textArr := strings.Split(text, " ")
 
-	for _, word := range text_arr {
+	for _, word := range textArr {
 		count, ok := words[word]
 		if ok {
 			words[word] = count + 1
@@ -43,15 +45,15 @@ func word_list(text string) []Words {
 		}
 	}
 
-	word_arr := make([]Words, 0)
+	wordSlice := make([]Words, 0)
 	for word, count := range words {
-		word_arr = append(word_arr, Words{word, count})
+		wordSlice = append(wordSlice, Words{word, count})
 	}
 
 	return word_arr
 }
 
-func output_words(words []Words) {
+func outputWords(words []Words) {
 	for _, word := range words {
 		fmt.Println(word.Count, word.Word)
 	}
@@ -81,9 +83,9 @@ func main() {
 	}
 
 	str := string(bs)
-	str = clean_string(str)
-	words := word_list(str)
+	str = cleanString(str)
+	words := wordList(str)
 	sort.Sort(ByCount(words))
 
-	output_words(words)
+	outputWords(words)
 }
