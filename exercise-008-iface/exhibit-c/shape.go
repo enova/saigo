@@ -68,7 +68,7 @@ func (r *Rectangle) Area() float64 {
 }
 
 //////////////////////////
-// Equalataral triangle //
+// Equilateral triangle //
 //////////////////////////
 
 type Triangle struct {
