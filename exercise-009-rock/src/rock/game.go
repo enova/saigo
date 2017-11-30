@@ -15,12 +15,12 @@ const (
 
 // Game ...
 type Game struct {
-	players []*Player
+	players []Player
 	points  []int
 }
 
 // Add adds a player to the game
-func (g *Game) Add(p *Player) {
+func (g *Game) Add(p Player) {
 	g.players = append(g.players, p)
 	g.points = append(g.points, 0)
 }
@@ -43,8 +43,8 @@ func (g *Game) RoundRobin() {
 			b := g.players[j]
 
 			// Determine Winner
-			moveA := a.Play()
-			moveB := b.Play()
+			moveA := Play(a)
+			moveB := Play(b)
 			winner := Winner(moveA, moveB)
 
 			// Update Scores
@@ -63,6 +63,6 @@ func (g *Game) Display() {
 
 	// For Each Player
 	for i, p := range g.players {
-		fmt.Printf("%-15s %5d\n", p.Type(), g.points[i])
+		fmt.Printf("%-15s %5d\n", Type(p), g.points[i])
 	}
 }
