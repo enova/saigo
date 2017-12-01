@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Name List</title>
+  </head>
+  <body>
+    <form action="/addname" method="POST">
+      <input type="text" name="name" placeholder="Enter Name">
+      <input type="submit" value="Submit"/>
+    </form>
+    <br>
+    <table>
+      <tr>
+        <th>Username</th>
+        <th>Count</th>
+      </tr>
+      {{range $user, $count := . }}
+        <tr>
+          <td>{{$user}}</td>
+          <td>{{$count}}</td>
+        </tr>
+      {{end}}
+    </table>
+  </body>
+</html>
