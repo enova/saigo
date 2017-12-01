@@ -14,12 +14,12 @@
         <th>Username</th>
         <th>Count</th>
       </tr>
-      {{ range .List }}
+      {{range $user, $count := . }}
         <tr>
-          <td>{{ .Name }}</td>
-          <td>{{ .Count }}</td>
+          <td>{{$user}}</td>
+          <td>{{$count}}</td>
         </tr>
-      {{ end }}
+      {{end}}
     </table>
   </body>
 </html>
