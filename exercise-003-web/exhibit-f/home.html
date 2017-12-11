@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <title>Name List</title>
+
+  <body>
+    <form action="/addName" method="POST">
+      <input type="text" name="name" placeholder="Enter Name">
+      <input type="submit" value="Add"/>
+    </form>
+    <table style="width:15%" border="1">
+        {{ range $key, $value := .}}
+            <tr><td>{{ $key }}</td><td>{{ $value }}</td></tr>
+        {{ end }}
+    </table>
+  </body>
+</html>
