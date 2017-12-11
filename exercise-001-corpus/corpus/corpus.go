@@ -27,24 +27,30 @@ func (p PairList) Less(i, j int) bool {
 var words map[string]int
 
 //CountWords is the kick off function
-func CountWords(fileName string) {
+func CountWords(fileName string) map[string]int {
 	readFile(fileName)
 	outputWords()
+	return words
 }
 
-func readFile(fileName string) {
+func readFile(fileName string) bool {
 	file, _ := os.Open(fileName)
 	defer file.Close()
 
 	stat, _ := file.Stat()
 
 	bs := make([]byte, stat.Size())
-	_, _ = file.Read(bs)
+	_, err := file.Read(bs)
+	if err != nil {
+		return false
+	}
 	str := string(bs)
 	parseWords(str)
+
+	return true
 }
 
-func parseWords(str string) {
+func parseWords(str string) string {
 	reg, _ := regexp.Compile("[^a-zA-Z0-9 ]+")
 	processedString := reg.ReplaceAllString(str, "")
 	reg, _ = regexp.Compile("[  ]+")
@@ -59,6 +65,7 @@ func parseWords(str string) {
 			words[value] = 1
 		}
 	}
+	return processedString
 }
 
 func outputWords() {
