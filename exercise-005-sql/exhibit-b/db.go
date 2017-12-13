@@ -14,6 +14,11 @@ func PanicOn(err error) {
 }
 
 func main() {
+	defer func() {
+		str := recover()
+		fmt.Println(str)
+	}()
+
 	db, err := sql.Open("postgres", "dbname=test sslmode=disable")
 	PanicOn(err)
 	defer db.Close()
