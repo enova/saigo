@@ -45,6 +45,28 @@ func (c *Circle) Area() float64 {
 	return math.Pi * c.radius * c.radius
 }
 
+/////////////
+// Ellipse //
+/////////////
+
+type Ellipse struct {
+	major float64
+	minor float64
+}
+
+func (e *Ellipse) Name() string {
+	return "Ellipse"
+}
+
+func (e *Ellipse) Perimeter() float64 {
+	// Rough approximation
+	return 2 * math.Pi * math.Sqrt((math.Pow(e.major, 2)+math.Pow(e.minor, 2))/2)
+}
+
+func (e *Ellipse) Area() float64 {
+	return math.Pi * e.major * e.minor
+}
+
 ////////////////
 // Efficiency //
 ////////////////
@@ -70,4 +92,7 @@ func main() {
 
 	c := Circle{radius: 10.0}
 	Efficiency(&c)
+
+	e := Ellipse{major: 100, minor: 70}
+	Efficiency(&e)
 }
