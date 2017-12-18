@@ -45,6 +45,7 @@ func readInFile() {
    }
 
    userNames = strings.Split(string(data), "\n")
+   // Remove extra line
    if (userNames[len(userNames)-1] == "") {
      userNames = userNames[:len(userNames)-1]
    }
