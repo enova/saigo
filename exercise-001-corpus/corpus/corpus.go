@@ -13,12 +13,14 @@ type keyValue struct {
 	value int
 }
 
+// List type to hold an array of keyValue struct
 type List []keyValue
 
+// WordCount function called in word_count.go
 func WordCount(filepath string) {
-	file_str_lower := readFile(filepath)
-	parsed_str := parseStr(file_str_lower)
-	counts := countWords(parsed_str)
+	fileStrLower := readFile(filepath)
+	parsedStr := parseStr(fileStrLower)
+	counts := countWords(parsedStr)
 	sortCount(counts)
 }
 
@@ -27,8 +29,8 @@ func readFile(filepath string) string {
 	if err != nil {
 		panic(err)
 	}
-	file_str := strings.ToLower(string(file))
-	return strings.Replace(file_str, "\n", " ", -1)
+	fileStr := strings.ToLower(string(file))
+	return strings.Replace(fileStr, "\n", " ", -1)
 }
 
 func parseStr(str string) []string {
@@ -40,16 +42,16 @@ func parseStr(str string) []string {
 }
 
 func countWords(strArr []string) map[string]int {
-	word_counts := make(map[string]int)
+	wordCounts := make(map[string]int)
 	for _, word := range strArr {
-		_, exists := word_counts[word]
+		_, exists := wordCounts[word]
 		if exists {
-			word_counts[word] += 1
+			wordCounts[word]++
 		} else {
-			word_counts[word] = 1
+			wordCounts[word] = 1
 		}
 	}
-	return word_counts
+	return wordCounts
 
 }
 
@@ -58,9 +60,8 @@ func (l List) Swap(i, j int) { l[i], l[j] = l[j], l[i] }
 func (l List) Less(i, j int) bool {
 	if l[i].value != l[j].value {
 		return l[i].value < l[j].value
-	} else {
-		return l[j].key < l[i].key
 	}
+	return l[j].key < l[i].key
 }
 
 func sortCount(wordmap map[string]int) {
