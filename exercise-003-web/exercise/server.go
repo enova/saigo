@@ -1,10 +1,7 @@
 package main
 
 import (
-	"bufio"
-	"encoding/csv"
 	"html/template"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -15,7 +12,7 @@ import (
 type View struct {
 	UserNames []string
 }
-
+const fileName = "names.txt"
 var indexT = template.Must(template.ParseFiles("./index.html"))
 var userNames []string
 
@@ -34,21 +31,23 @@ func signup(w http.ResponseWriter, r *http.Request) {
 
 func writeToFile() {
 	output := strings.Join(userNames, "\n")
-	ioutil.WriteFile("names.csv", []byte(output), 0644)
+	ioutil.WriteFile(fileName, []byte(output), 0644)
 }
 
 func readInFile() {
-	csvFile, _ := os.Open("names.csv")
-	reader := csv.NewReader(bufio.NewReader(csvFile))
-	for {
-		line, error := reader.Read()
-		if error == io.EOF {
-			break
-		} else if error != nil {
-			log.Fatal(error)
-		}
-		userNames = append(userNames, line[0])
-	}
+   file, err := os.Open(fileName)
+   if err != nil {
+       log.Fatal(err)
+   }
+   data, err := ioutil.ReadAll(file)
+   if err != nil {
+       log.Fatal(err)
+   }
+
+   userNames = strings.Split(string(data), "\n")
+   if (userNames[len(userNames)-1] == "") {
+     userNames = userNames[:len(userNames)-1]
+   }
 }
 
 func main() {
