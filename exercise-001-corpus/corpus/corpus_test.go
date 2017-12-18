@@ -14,6 +14,7 @@ func TestCorpusShortString(t *testing.T) {
 
 func TestCorpusLongerString(t *testing.T) {
 	result := Analyze("Are you serious? I knew you were. What is going on? I don't know. Who knows? I know. I do know.")
+  assert.Equal(t, 15, len(result))
 	assert.Equal(t, "I", result[0].Word)
 	assert.Equal(t, 4, result[0].Count)
 	assert.Equal(t, "know", result[1].Word)
