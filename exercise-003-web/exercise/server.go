@@ -1,15 +1,15 @@
 package main
 
 import (
+	"bufio"
+	"encoding/csv"
 	"html/template"
+	"io"
+	"io/ioutil"
+	"log"
 	"net/http"
-  "io"
-  "io/ioutil"
-  "strings"
-  "os"
-  "encoding/csv"
-  "log"
-  "bufio"
+	"os"
+	"strings"
 )
 
 type View struct {
@@ -28,31 +28,31 @@ func signup(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := r.Form.Get("username")
 	userNames = append(userNames, username)
-  writeToFile()
+	writeToFile()
 	http.Redirect(w, r, "/", 301)
 }
 
 func writeToFile() {
-  output := strings.Join(userNames, "\n")
-  ioutil.WriteFile("names.csv", []byte(output), 0644)
+	output := strings.Join(userNames, "\n")
+	ioutil.WriteFile("names.csv", []byte(output), 0644)
 }
 
 func readInFile() {
-  csvFile, _ := os.Open("names.csv")
-  reader := csv.NewReader(bufio.NewReader(csvFile))
-  for {
-      line, error := reader.Read()
-      if error == io.EOF {
-          break
-      } else if error != nil {
-          log.Fatal(error)
-      }
-      userNames = append(userNames,line[0])
-  }
+	csvFile, _ := os.Open("names.csv")
+	reader := csv.NewReader(bufio.NewReader(csvFile))
+	for {
+		line, error := reader.Read()
+		if error == io.EOF {
+			break
+		} else if error != nil {
+			log.Fatal(error)
+		}
+		userNames = append(userNames, line[0])
+	}
 }
 
 func main() {
-  readInFile()
+	readInFile()
 	http.HandleFunc("/", index)
 	http.HandleFunc("/signup", signup)
 	http.ListenAndServe(":8080", nil)
