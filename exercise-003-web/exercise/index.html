@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <title>Web Exercise</title>
+
+  <body>
+    <form action="/signup" method="POST">
+      <input type="text" name="username" placeholder="Enter Name">
+      <input type="submit" value="Sign-Up"/>
+    </form>
+    <h1>Who signed up?</h1>
+    {{range .UserNames}}
+      <li>{{.}}</li>
+    {{end}}
+  </body>
+</html>
