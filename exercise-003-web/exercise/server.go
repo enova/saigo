@@ -9,10 +9,13 @@ import (
 	"strings"
 )
 
+// View is the data object passed into template
 type View struct {
 	UserNames []string
 }
+
 const fileName = "names.txt"
+
 var indexT = template.Must(template.ParseFiles("./index.html"))
 var userNames []string
 
@@ -35,20 +38,20 @@ func writeToFile() {
 }
 
 func readInFile() {
-   file, err := os.Open(fileName)
-   if err != nil {
-       log.Fatal(err)
-   }
-   data, err := ioutil.ReadAll(file)
-   if err != nil {
-       log.Fatal(err)
-   }
+	file, err := os.Open(fileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-   userNames = strings.Split(string(data), "\n")
-   // Remove extra line
-   if (userNames[len(userNames)-1] == "") {
-     userNames = userNames[:len(userNames)-1]
-   }
+	userNames = strings.Split(string(data), "\n")
+	// Remove extra line
+	if userNames[len(userNames)-1] == "" {
+		userNames = userNames[:len(userNames)-1]
+	}
 }
 
 func main() {
