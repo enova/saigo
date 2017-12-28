@@ -2,22 +2,24 @@ package main
 
 import (
 	"html/template"
-	"io/ioutil"
+  "io"
 	"log"
 	"net/http"
 	"os"
-	"strings"
+  "bufio"
+  "encoding/csv"
+  "strconv"
 )
 
 // View is the data object passed into template
 type View struct {
-	UserNames []string
+	UserNames map[string]int
 }
 
-const fileName = "names.txt"
-
-var indexT = template.Must(template.ParseFiles("./index.html"))
-var userNames []string
+var (
+  indexT = template.Must(template.ParseFiles("./index.html"))
+  userNames map[string]int
+)
 
 func index(w http.ResponseWriter, r *http.Request) {
 	v := View{UserNames: userNames}
@@ -27,35 +29,65 @@ func index(w http.ResponseWriter, r *http.Request) {
 func signup(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := r.Form.Get("username")
-	userNames = append(userNames, username)
-	writeToFile()
+	userNames = updateWordAcount(username, userNames)
+	error := writeUsernamesToFile(userNames, "names.csv")
+  if error != nil {
+    log.Fatal(error)
+  }
 	http.Redirect(w, r, "/", 301)
 }
 
-func writeToFile() {
-	output := strings.Join(userNames, "\n")
-	ioutil.WriteFile(fileName, []byte(output), 0644)
+func writeUsernamesToFile(userNames map[string]int, fileName string) (error) {
+  file, _ := os.Create("names.csv")
+  defer file.Close()
+  w := csv.NewWriter(file)
+  var err error
+	for key, value := range userNames {
+    record := []string{key, strconv.Itoa(value)}
+		if e := w.Write(record); e != nil {
+		    err = e
+		}
+	}
+	w.Flush()
+  return err
 }
 
-func readInFile() {
-	file, err := os.Open(fileName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	data, err := ioutil.ReadAll(file)
-	if err != nil {
-		log.Fatal(err)
-	}
+func readUsernameFile(filename string) (map[string]int, error) {
+  userNames = make(map[string]int)
+  csvFile, _ := os.Open("names.csv")
+  reader := csv.NewReader(bufio.NewReader(csvFile))
+  var err error
+  for {
+    line, error := reader.Read()
+    if error == io.EOF {
+       break
+    }
+    count, error := strconv.Atoi(line[1])
+    if (error != nil) {
+      err = error
+    }
+    userNames[line[0]] = count
+  }
 
-	userNames = strings.Split(string(data), "\n")
-	// Remove extra line
-	if userNames[len(userNames)-1] == "" {
-		userNames = userNames[:len(userNames)-1]
-	}
+  return userNames, err
+}
+
+func updateWordAcount(s string, words map[string]int) map[string]int {
+  var wordExists = words[s]
+  if wordExists != -1 {
+    words[s] = words[s] + 1
+  } else {
+    words[s] = 1
+  }
+	return words
 }
 
 func main() {
-	readInFile()
+	tempUserNames, error := readUsernameFile("names.csv")
+  if error != nil {
+		log.Fatal(error)
+	}
+  userNames = tempUserNames
 	http.HandleFunc("/", index)
 	http.HandleFunc("/signup", signup)
 	http.ListenAndServe(":8080", nil)

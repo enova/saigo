@@ -8,8 +8,15 @@
       <input type="submit" value="Sign-Up"/>
     </form>
     <h1>Who signed up?</h1>
-    {{range .UserNames}}
-      <li>{{.}}</li>
-    {{end}}
+    <table>
+      <th>Word</th>
+      <th>Count</th>
+      {{range $user, $count := .UserNames }}
+        <tr>
+          <td>{{$user}}</td>
+          <td>{{$count}}</td>
+        </tr>
+      {{end}}
+    </table>
   </body>
 </html>
