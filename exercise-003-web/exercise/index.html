@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <title>Web Exercise</title>
+
+  <body>
+    <form action="/signup" method="POST">
+      <input type="text" name="username" placeholder="Enter Name">
+      <input type="submit" value="Sign-Up"/>
+    </form>
+    <h1>Who signed up?</h1>
+    <table>
+      <th>Word</th>
+      <th>Count</th>
+      {{range $user, $count := .UserNames }}
+        <tr>
+          <td>{{$user}}</td>
+          <td>{{$count}}</td>
+        </tr>
+      {{end}}
+    </table>
+  </body>
+</html>
