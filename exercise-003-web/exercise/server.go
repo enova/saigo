@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"sync"
 )
 
 // View is the data object passed into template
@@ -19,6 +20,7 @@ type View struct {
 var (
 	indexT    = template.Must(template.ParseFiles("./index.html"))
 	userNames map[string]int
+	lock      sync.Mutex
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -29,11 +31,13 @@ func index(w http.ResponseWriter, r *http.Request) {
 func signup(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := r.Form.Get("username")
-	userNames = updateWordAcount(username, userNames)
+	lock.Lock()
+	userNames = updateWordCount(username, userNames)
 	error := writeUsernamesToFile(userNames, "names.csv")
 	if error != nil {
 		log.Fatal(error)
 	}
+	lock.Unlock()
 	http.Redirect(w, r, "/", 301)
 }
 
@@ -72,7 +76,7 @@ func readUsernameFile(filename string) (map[string]int, error) {
 	return userNames, err
 }
 
-func updateWordAcount(s string, words map[string]int) map[string]int {
+func updateWordCount(s string, words map[string]int) map[string]int {
 	var wordExists = words[s]
 	if wordExists != -1 {
 		words[s] = words[s] + 1
@@ -83,11 +87,13 @@ func updateWordAcount(s string, words map[string]int) map[string]int {
 }
 
 func main() {
+	lock.Lock()
 	tempUserNames, error := readUsernameFile("names.csv")
 	if error != nil {
 		log.Fatal(error)
 	}
 	userNames = tempUserNames
+	lock.Unlock()
 	http.HandleFunc("/", index)
 	http.HandleFunc("/signup", signup)
 	http.ListenAndServe(":8080", nil)
