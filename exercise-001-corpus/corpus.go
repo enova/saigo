@@ -3,19 +3,9 @@ package main
 import (
   "os"
   "io/ioutil"
-  "strings"
-  "regexp"
   "errors"
+  "./corpus"
 )
-
-func grepWords(str string) []string {
-  if len(str) == 0 {
-    return []string{}
-  } else {
-    re := regexp.MustCompile(`\b[\w\']+\b`)
-    return re.FindAllString(str, -1)
-  }
-}
 
 func ingestFile(filename string) (string, error) {
   buff, err := ioutil.ReadFile(filename)
@@ -45,10 +35,11 @@ func main() {
     panic(err)
   }
 
-  wordList := grepWords(strings.ToLower(rawFileText))
+  wordList := corpus.GrepWords(rawFileText)
   if len(wordList) == 0 {
     return
   }
 
-  PrintWordFreqs(wordList)
+  wordFreqs := corpus.GenerateWordFreqs(wordList)
+  corpus.PrintSortedWordFreqs(wordFreqs)
 }
