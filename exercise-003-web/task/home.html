@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <title>Answer to Life, Universe and Everything</title>
+
+  <body>
+    <h2>Hola Visitor!</h2>
+    <p>
+      Enter your name find the answer to <i>Life, Universe and Everything</i>.
+    </p>
+    <form action="/visit" method="POST">
+      <label>Name:</label>
+      <input name="name" type="text"/>
+      <button type="submit">Submit</button>
+    </form>
+    <br>
+    <h2> Past answer seekers </h2>
+    <table>
+      <tr>
+        <th>Name</th><th>Visits</th>
+      </tr>
+      {{ range $name, $count := .}}
+      <tr><td>{{ $name }}</td><td>{{ $count }}</td></tr>
+      {{ end }}
+    </table>
+  </body>
+</html>
