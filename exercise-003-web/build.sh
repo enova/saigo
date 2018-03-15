@@ -1,0 +1,3 @@
+gofmt -w task
+golint task/...
+go build task/server.go
