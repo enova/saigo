@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <title>Catalog of Names</title>
+
+  <body>
+    <form action="/signup" method="POST">
+      <input type="text" name="username" placeholder="Enter Name">
+      <input type="submit" value="Sign-Up"/>
+    </form>
+
+    <table>
+      <tbody>
+        {{range $name, $num := .Session}}
+          <tr>
+            <td>{{ $name }}</td>
+            <td>{{ $num }} </td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </body>
+</html>
