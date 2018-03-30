@@ -44,7 +44,7 @@ func WordCount(s string) PairList {
 	words := strings.Fields(s)
 	dict := make(map[string]int)
 	for _, word := range words {
-		dict[strings.ToLower(word)] += 1
+		dict[strings.ToLower(word)]++
 	}
 	return sortByFreq(dict)
 }
