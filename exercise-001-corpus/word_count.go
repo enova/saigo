@@ -29,5 +29,4 @@ func main() {
 	for _, pair := range dict {
 		fmt.Println(pair.Freq, " ", pair.Word)
 	}
-  fmt.Println(len(dict))
 }
