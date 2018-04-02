@@ -8,9 +8,9 @@ import (
 
 func main() {
 	bs, err := ioutil.ReadFile("7oldsamr.txt")
-  if err != nil {
-    return
-  }
+	if err != nil {
+		return
+	}
 
 	dict := corpus.WordCount(string(bs))
 	for _, pair := range dict {
