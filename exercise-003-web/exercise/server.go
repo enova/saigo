@@ -57,9 +57,14 @@ func readNamebook() error {
 		err = errCreate
 	} else if err == nil {
 		namebookFile, errOpen := os.Open(namebookPath)
-		err = errOpen
+		if errOpen != nil {
+			return errOpen
+		}
 		defer namebookFile.Close()
-		s, _ := ioutil.ReadFile(namebookPath)
+		s, errRead := ioutil.ReadFile(namebookPath)
+		if errRead != nil {
+			return errRead
+		}
 		err = json.Unmarshal(s, &namebook)
 	}
 	return err
