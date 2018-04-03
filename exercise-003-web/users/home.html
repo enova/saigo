@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <title>Users</title>
+
+    <body>
+        <h1>List of users</h1>
+        {{ range $key, $value := . }}
+            <li><strong>{{ $key }}</strong>: {{ $value }}</li>
+        {{ end }}
+
+        <br/>
+
+
+        <form action="/signup" method="POST">
+            <input type="text" name="username" placeholder="Enter Name">
+            <input type="submit" value="Sign-Up"/>
+        </form>
+
+    </body>
+</html>
