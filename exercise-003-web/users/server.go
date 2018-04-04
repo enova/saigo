@@ -8,14 +8,19 @@ import (
 	"net/http"
 	"strings"
 
+	"sync"
+
 	"./utils"
 )
 
 type usersMap map[string]uint32
 
-var replacer = strings.NewReplacer(",", "", ".", "", ";", "", "?", "", "\"", "")
-var users = make(usersMap)
-var usersFileName = "./users.json"
+var (
+	replacer      = strings.NewReplacer(",", "", ".", "", ";", "", "?", "", "\"", "")
+	users         = make(usersMap)
+	usersFileName = "./users.json"
+	lock          = sync.RWMutex{}
+)
 
 func getUsers() {
 	data, err := ioutil.ReadFile(usersFileName)
@@ -27,30 +32,54 @@ func getUsers() {
 	str := string(data)
 	fmt.Println(str)
 
+	lock.Lock()
+	defer lock.Unlock()
+
 	err = json.Unmarshal(data, &users)
 	if err != nil {
 		fmt.Println(utils.WhereAmI(), "Failed to Unmarshal contents of", str, err)
 	}
 }
 
+func serializeUsers() ([]byte, error) {
+	lock.RLock()
+	defer lock.RUnlock()
+
+	return json.Marshal(users)
+}
+
+func persistUsers(data []byte) error {
+	return ioutil.WriteFile(usersFileName, data, 0644)
+}
+
 func storeUsers() {
-	usersInJSON, err := json.Marshal(users)
+	data, err := serializeUsers()
 	if err != nil {
-		fmt.Println(utils.WhereAmI(), "Failed to Unmarshal contents of users: ", err)
+		fmt.Println(utils.WhereAmI(), "Failed to convert users: ", err)
 		return
 	}
-	err = ioutil.WriteFile(usersFileName, usersInJSON, 0644)
+
+	err = persistUsers(data)
 	if err != nil {
-		fmt.Println(utils.WhereAmI(), "Failed to persist contents of users: ", err)
+		fmt.Println(utils.WhereAmI(), "Failed to persist: ", err)
 	}
 }
 
-var homeT = template.Must(template.ParseFiles("users/home.html"))
+var homeT = template.Must(template.ParseFiles("./home.html"))
 
 func home(w http.ResponseWriter, r *http.Request) {
 	err := homeT.Execute(w, users)
 	if err != nil {
 		fmt.Println(utils.WhereAmI(), "Failed to executes: ", err)
+	}
+}
+
+func updateUsers(username string) {
+	username = replacer.Replace(username)
+	if username != "" {
+		lock.Lock()
+		defer lock.Unlock()
+		users[strings.ToLower(username)]++
 	}
 }
 
@@ -61,11 +90,8 @@ func signup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	username := replacer.Replace(r.Form.Get("username"))
-	if username != "" {
-		users[strings.ToLower(username)]++
-		storeUsers()
-	}
+	updateUsers(r.Form.Get("username"))
+	storeUsers()
 	http.Redirect(w, r, "/home", 302)
 }
 
