@@ -31,9 +31,9 @@ func signup(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := strings.TrimSpace(r.Form.Get("username"))
 	if username != "" {
+		lock.Lock()
 		namebook[username]++
 		js, _ := json.Marshal(namebook)
-		lock.Lock()
 		err := writeNamebook(js)
 		lock.Unlock()
 		if err != nil {
