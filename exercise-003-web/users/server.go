@@ -19,7 +19,8 @@ var (
 	replacer      = strings.NewReplacer(",", "", ".", "", ";", "", "?", "", "\"", "")
 	users         = make(usersMap)
 	usersFileName = "./users.json"
-	lock          = sync.RWMutex{}
+	lockUsers     = sync.RWMutex{}
+	lockUsersFile = sync.Mutex{}
 )
 
 func getUsers() {
@@ -32,9 +33,6 @@ func getUsers() {
 	str := string(data)
 	fmt.Println(str)
 
-	lock.Lock()
-	defer lock.Unlock()
-
 	err = json.Unmarshal(data, &users)
 	if err != nil {
 		fmt.Println(utils.WhereAmI(), "Failed to Unmarshal contents of", str, err)
@@ -42,13 +40,16 @@ func getUsers() {
 }
 
 func serializeUsers() ([]byte, error) {
-	lock.RLock()
-	defer lock.RUnlock()
+	lockUsers.RLock()
+	defer lockUsers.RUnlock()
 
 	return json.Marshal(users)
 }
 
 func persistUsers(data []byte) error {
+	lockUsersFile.Lock()
+	defer lockUsersFile.Unlock()
+
 	return ioutil.WriteFile(usersFileName, data, 0644)
 }
 
@@ -77,8 +78,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 func updateUsers(username string) {
 	username = replacer.Replace(username)
 	if username != "" {
-		lock.Lock()
-		defer lock.Unlock()
+		lockUsers.Lock()
+		defer lockUsers.Unlock()
 		users[strings.ToLower(username)]++
 	}
 }
