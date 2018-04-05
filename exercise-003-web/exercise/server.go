@@ -31,29 +31,30 @@ func signup(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := strings.TrimSpace(r.Form.Get("username"))
 	if username != "" {
-		lock.Lock()
-		namebook[username]++
-		js, _ := json.Marshal(namebook)
-		err := writeNamebook(js)
-		lock.Unlock()
-		if err != nil {
+		if err := writeNamebook(username); err != nil {
 			log.Fatal(err)
 		}
 	}
 	http.Redirect(w, r, "/home", 301)
 }
 
-func writeNamebook(j []byte) error {
-	err := ioutil.WriteFile(namebookPath, j, 0644)
+func writeNamebook(username string) error {
+	lock.Lock()
+	defer lock.Unlock()
+	namebook[username]++
+	js, _ := json.Marshal(namebook)
+	err := ioutil.WriteFile(namebookPath, js, 0644)
 	return err
 }
 
 func readNamebook() error {
+	lock.Lock()
+	defer lock.Unlock()
 	namebook = make(map[string]int)
 	_, err := os.Stat(namebookPath)
 	if os.IsNotExist(err) {
 		var file, errCreate = os.Create(namebookPath)
-		file.Close()
+		defer file.Close()
 		err = errCreate
 	} else if err == nil {
 		namebookFile, errOpen := os.Open(namebookPath)
@@ -71,9 +72,7 @@ func readNamebook() error {
 }
 
 func main() {
-	lock.Lock()
 	err := readNamebook()
-	lock.Unlock()
 	if err != nil {
 		log.Fatal(err)
 	}
