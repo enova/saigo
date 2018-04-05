@@ -15,7 +15,7 @@ func signup(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := r.Form.Get("username")
 	if len(username) != 0 {
-		Session[username]++
+		AddUser(username)
 	}
 
 	sessionView := view{Session: Session}

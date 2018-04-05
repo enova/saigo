@@ -6,9 +6,13 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 )
 
-var sessionFile = "/tmp/exhibit-f-session"
+var (
+	sessionFile = "/tmp/exhibit-f-session"
+	sessionLock = sync.RWMutex{}
+)
 
 // Session is a key / value pair of entered
 // names to the number of times each name was
@@ -18,6 +22,15 @@ var Session = make(map[string]int)
 func sessionEntries() []string {
 	contents, _ := ioutil.ReadFile(sessionFile)
 	return strings.Split(string(contents), "\n")
+}
+
+// AddUser increments the count of a username
+// in a thread-safe way.
+func AddUser(username string) {
+	sessionLock.Lock()
+	defer sessionLock.Unlock()
+
+	Session[username]++
 }
 
 // LoadSession loads an existing session from
