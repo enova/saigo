@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<title>Name Book</title>
+
+<body>
+    <h3>Registered Users</h3>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Freqeuncy</th>
+        </tr>
+        {{range $name, $freq := .NameBook}}
+            <tr>
+                <td>{{$name}}</td>
+                <td>{{$freq}}</td>
+            </tr>
+        {{end}}
+    </table>
+    <hr>
+    <h3>Make New Registration</h3>
+    <form action="/signup" method="POST">
+        <input type="text" name="username" placeholder="Enter Name" required>
+        <input type="submit" value="Sign-Up"/>
+    </form>
+</body>
+</html>
