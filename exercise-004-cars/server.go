@@ -1,11 +1,11 @@
 package main
 
 import (
-	"net/http"
 	"html/template"
-	"time"
+	"net/http"
 	"strings"
 	"sync"
+	"time"
 )
 
 type Vehicle struct {
@@ -23,11 +23,12 @@ type View struct {
 }
 
 var (
-	joinT          = template.Must(template.ParseFiles("./templates/join.html"))
-	playT            = template.Must(template.ParseFiles("./templates/play.html"))
-	sessionStore     map[string]map[string]int
-	lock           sync.RWMutex
+	joinT        = template.Must(template.ParseFiles("./templates/join.html"))
+	playT        = template.Must(template.ParseFiles("./templates/play.html"))
+	sessionStore map[string]map[string]int
+	lock         sync.RWMutex
 )
+
 func inThreeMinutes() time.Time {
 	return time.Now().Add(time.Minute * 3)
 }
