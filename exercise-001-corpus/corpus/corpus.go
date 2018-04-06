@@ -8,11 +8,6 @@ import (
 	"strings"
 )
 
-func checkErr(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
 func (p wordCountList) Len() int {
 	return len(p)
 }
@@ -66,14 +61,15 @@ func formatOutput(wordCounts wordCountList) (output string) {
 // ParseFile reads the file contents of a passed in file, cleans them of punctuation,
 //  runs them through a word counting function, and then formats the output to
 //  return to word_count.go
-func ParseFile(file string) string {
+func ParseFile(file string) (string, error) {
+	var output string
 	fileContents, err := ioutil.ReadFile(file)
-	checkErr(err)
 	cleanedString, err := cleanFileContents(string(fileContents))
-	checkErr(err)
-	wordCounts := countWords(strings.Fields(cleanedString))
-	output := formatOutput(wordCounts)
-	return output
+	if err == nil {
+		wordCounts := countWords(strings.Fields(cleanedString))
+		output = formatOutput(wordCounts)
+	}
+	return output, err
 }
 
 func main() {
