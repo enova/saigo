@@ -1,6 +1,7 @@
 package corpus
 
 import (
+	"log"
 	"reflect"
 	"testing"
 )
@@ -52,8 +53,8 @@ func TestCountWords(t *testing.T) {
 }
 
 func TestParseFile(t *testing.T) {
-	parseResult := ParseFile("test_file.txt")
-	if len(parseResult) != len(testData.testOutput) {
+	parseResult, err := ParseFile("test_file.txt")
+	if err != nil {
 		t.Error(
 			"\nFor: ", "test_file.txt",
 			"\nExpected: ", testData.testOutput,
@@ -63,8 +64,13 @@ func TestParseFile(t *testing.T) {
 
 func BenchmarkParseFile(b *testing.B) {
 	var r string
+	var err error
 	for n := 0; n < b.N; n++ {
-		r = ParseFile("test_file.txt")
+		r, err = ParseFile("test_file.txt")
+	}
+	if err != nil {
+		log.Println(err)
+		return
 	}
 	result = r
 }
