@@ -1,32 +1,46 @@
 package corpus
 
 import (
+	"log"
+	"regexp"
 	"sort"
 	"strings"
 )
 
+// Pair is a struct to store word and its frequency
 type Pair struct {
 	Word string
 	Freq int
 }
 
+// PairList is a slice of Pairs
 type PairList []Pair
 
-// implement sort interface
-func (this PairList) Len() int {
-	return len(this)
+// Len is used to implement sort.Interface
+func (pairList PairList) Len() int {
+	return len(pairList)
 }
 
-// deterministic, both Freq and Word should be taken into consideration
-func (this PairList) Less(i, j int) bool {
-	if this[i].Freq == this[j].Freq {
-		return this[i].Word < this[j].Word
+// Less is used to implement sort.Interface
+func (pairList PairList) Less(i, j int) bool {
+	if pairList[i].Freq == pairList[j].Freq {
+		return pairList[i].Word > pairList[j].Word
 	}
-	return this[i].Freq < this[j].Freq
+	return pairList[i].Freq > pairList[j].Freq
 }
 
-func (this PairList) Swap(i, j int) {
-	this[i], this[j] = this[j], this[i]
+// Swap is used to implement sort.Interface
+func (pairList PairList) Swap(i, j int) {
+	pairList[i], pairList[j] = pairList[j], pairList[i]
+}
+
+func splitString(s string) []string {
+	reg, err := regexp.Compile("[^a-zA-Z0-9']+")
+	if err != nil {
+		log.Fatal(err)
+	}
+	s = reg.ReplaceAllString(s, " ")
+	return strings.Fields(s)
 }
 
 func sortByFreq(dict map[string]int) PairList {
@@ -36,12 +50,13 @@ func sortByFreq(dict map[string]int) PairList {
 		sorted[i] = Pair{word, freq}
 		i++
 	}
-	sort.Sort(sort.Reverse(sorted))
+	sort.Sort(sorted)
 	return sorted
 }
 
+// WordCount takes a string and returns a PariList of sorted word frequency
 func WordCount(s string) PairList {
-	words := strings.Fields(s)
+	words := splitString(s)
 	dict := make(map[string]int)
 	for _, word := range words {
 		dict[strings.ToLower(word)]++
