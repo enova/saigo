@@ -14,8 +14,8 @@ import (
 // Phone ...
 type Phone struct {
 	Age      int    `json:"age"`
-	Id       string `json:"id"`
-	ImageUrl string `json:"imageUrl"`
+	ID       string `json:"id"`
+	ImageURL string `json:"imageUrl"`
 	Name     string `json:"name"`
 	Snippet  string `json:"snippet"`
 }
@@ -28,6 +28,7 @@ const (
 	selectPhones   = `SELECT age, id, imageurl, name, snippet FROM phone`
 )
 
+// PanicOn will panic if err is not nil
 func PanicOn(err error) {
 	if err != nil {
 		panic(err)
@@ -41,7 +42,6 @@ func setup() {
 	var count int
 	err = db.QueryRow(queryCount).Scan(&count)
 	PanicOn(err)
-	fmt.Println("number of rows in phone table: %5d", count)
 	if count == 0 {
 		data, err := ioutil.ReadFile("./exhibit-d/phones.json")
 		if err != nil {
@@ -55,7 +55,7 @@ func setup() {
 		}
 		for _, phone := range allPhones {
 			_, err := db.Exec(runInsertPhone,
-				phone.Age, phone.Id, phone.ImageUrl, phone.Name, phone.Snippet)
+				phone.Age, phone.ID, phone.ImageURL, phone.Name, phone.Snippet)
 			PanicOn(err)
 		}
 	} else {
@@ -63,7 +63,7 @@ func setup() {
 		PanicOn(err)
 		for rows.Next() {
 			phone := Phone{}
-			err := rows.Scan(&phone.Age, &phone.Id, &phone.ImageUrl, &phone.Name, &phone.Snippet)
+			err := rows.Scan(&phone.Age, &phone.ID, &phone.ImageURL, &phone.Name, &phone.Snippet)
 			PanicOn(err)
 			allPhones = append(allPhones, phone)
 		}
