@@ -10,7 +10,11 @@ import (
 
 // Phone ...
 type Phone struct {
-	Name string `json:"name"`
+	Age      int    `json:"age"`
+	ID       string `json:"id"`
+	ImageURL string `json:"imageUrl"`
+	Name     string `json:"name"`
+	Snippet  string `json:"snippet"`
 }
 
 var allPhones []Phone
@@ -29,7 +33,9 @@ func setup() {
 }
 
 func phones(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(allPhones)
+	encoder := json.NewEncoder(w)
+	encoder.SetIndent("", "  ")
+	encoder.Encode(allPhones)
 }
 
 func main() {
