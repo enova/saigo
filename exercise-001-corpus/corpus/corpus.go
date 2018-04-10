@@ -17,21 +17,21 @@ type Pair struct {
 type PairList []Pair
 
 // Len is used to implement sort.Interface
-func (pairList PairList) Len() int {
-	return len(pairList)
+func (p PairList) Len() int {
+	return len(p)
 }
 
 // Less is used to implement sort.Interface
-func (pairList PairList) Less(i, j int) bool {
-	if pairList[i].Freq == pairList[j].Freq {
-		return pairList[i].Word > pairList[j].Word
+func (p PairList) Less(i, j int) bool {
+	if p[i].Freq == p[j].Freq {
+		return p[i].Word < p[j].Word
 	}
-	return pairList[i].Freq > pairList[j].Freq
+	return p[i].Freq > p[j].Freq
 }
 
 // Swap is used to implement sort.Interface
-func (pairList PairList) Swap(i, j int) {
-	pairList[i], pairList[j] = pairList[j], pairList[i]
+func (p *PairList) Swap(i, j int) {
+	(*p)[i], (*p)[j] = (*p)[j], (*p)[i]
 }
 
 func splitString(s string) []string {
@@ -50,7 +50,7 @@ func sortByFreq(dict map[string]int) PairList {
 		sorted[i] = Pair{word, freq}
 		i++
 	}
-	sort.Sort(sorted)
+	sort.Sort(&sorted)
 	return sorted
 }
 
