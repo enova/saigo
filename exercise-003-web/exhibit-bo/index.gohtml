@@ -6,7 +6,7 @@
     <form action="/names" method="POST">
       <input type="text" name="firstName" placeholder="First Name" required>
       <input type="text" name="lastName" placeholder="Last Name" required>
-      <input type="submit" value="Post-Name"/>
+      <input type="submit" value="Post Name"/>
     </form>
 
     <table>
@@ -16,8 +16,11 @@
         </tr>
       </thead>
       <tbody>
+        {{range .}}
         <tr>
+          <td> {{.FullName}} </td>
         </tr>
+        {{end}}
       </tbody>
     </table>
   </body>
