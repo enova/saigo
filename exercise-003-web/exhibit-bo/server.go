@@ -6,8 +6,12 @@ import (
 	"net/http"
 )
 
-var homeT = template.Must(template.ParseFiles("exhibit-bo/index.gohtml"))
 var users = make([]User, 1)
+var homeT *template.Template
+
+func setup(dir string) {
+	homeT = template.Must(template.ParseFiles(dir + "/exhibit-bo/index.gohtml"))
+}
 
 func index(w http.ResponseWriter, r *http.Request) {
 	users = append(users, User{"Bo", "Guthrie"})
@@ -21,6 +25,7 @@ func names(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	setup("../")
 	http.HandleFunc("/", index)
 	http.HandleFunc("/names", names)
 	http.ListenAndServe(":8080", nil)
