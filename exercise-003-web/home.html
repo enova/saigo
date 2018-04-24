@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <title>Learning Go</title>
+
+  <body>
+    <form action="/" method="post">
+        <label for="name">Name:</label><input type="text" name="name">
+        <input type="submit" value="Add">
+    </form>
+    <div>
+        <p>{{.Err}}</p>
+    </div>
+    <ul>
+        {{ range $key, $value := .Names }}
+        <li>{{ $key }} - {{ $value }}</li>
+        {{ end }}
+    </ul>
+  </body>
+</html>
