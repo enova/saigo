@@ -78,11 +78,11 @@
                 <th>Vehicle</th>
                 <th>Count</th>
               </tr>
-              {{ range .Vehicles.List }}
+              {{ range $index, $vehicle := .Vehicles.List }}
               <tr>
-                <th scope="row">x</th>
-                <td>{{ .Name }}</td>
-                <td>{{ .Count }}</td>
+                <th scope="row"></th>
+                <td>{{ $vehicle.Name }}</td>
+                <td>{{ $vehicle.Count }}</td>
               </tr>
               {{ end }}
             </table>
