@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <title>Learning Go</title>
+
+  <body>
+    <form action="/signup" method="POST">
+      <input type="text" name="username" placeholder="Enter Name">
+      <input type="submit" value="Sign-Up"/>
+    </form>
+    <table id='user_table'>
+      <tr>
+        <th>Username</th>
+        <th>Logins</th>
+      </tr>
+      {{ range  $key, $value := .UserLogins }}
+        <tr>
+          <th> {{ $key }} </th>
+          <th> {{ $value }} </th>
+        </tr>
+      {{ end }}
+    </table>
+  </body>
+</html>
