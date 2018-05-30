@@ -1,0 +1,17 @@
+mode: set
+saigo/exercise-001-corpus/corpus.go:18.13,22.17 3 0
+saigo/exercise-001-corpus/corpus.go:26.3,28.20 3 0
+saigo/exercise-001-corpus/corpus.go:22.17,24.4 1 0
+saigo/exercise-001-corpus/corpus.go:30.35,32.17 2 0
+saigo/exercise-001-corpus/corpus.go:35.3,35.43 1 0
+saigo/exercise-001-corpus/corpus.go:32.17,34.4 1 0
+saigo/exercise-001-corpus/corpus.go:38.48,41.30 3 1
+saigo/exercise-001-corpus/corpus.go:44.3,44.19 1 1
+saigo/exercise-001-corpus/corpus.go:41.30,43.4 1 1
+saigo/exercise-001-corpus/corpus.go:47.63,49.31 2 1
+saigo/exercise-001-corpus/corpus.go:52.3,52.20 1 1
+saigo/exercise-001-corpus/corpus.go:49.31,51.4 1 1
+saigo/exercise-001-corpus/corpus.go:55.45,56.46 1 0
+saigo/exercise-001-corpus/corpus.go:56.46,58.4 1 0
+saigo/exercise-001-corpus/corpus.go:61.36,62.40 1 0
+saigo/exercise-001-corpus/corpus.go:62.40,64.4 1 0
