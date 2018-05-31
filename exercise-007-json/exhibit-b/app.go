@@ -6,7 +6,7 @@ import (
 )
 
 type Element struct {
-	Name         string  `json:"name"`
+	Name         string  `json:"potato"`
 	Symbol       string  `json:"symbol"`
 	AtomicNumber int     `json:"atomic_number"`
 	AtomicWeight float64 `json:"atomic_weight"`
