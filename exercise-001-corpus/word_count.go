@@ -1,13 +1,15 @@
 package main
 
 import (
+	"./corpus"
 	"fmt"
 	"io/ioutil"
-	"./corpus"
+	"os"
 )
 
 func main() {
-	var str = readFile("7oldsamr.txt")
+	fileName := os.Args[1]
+	var str = readFile(fileName)
 
 	corpus.Analyze(str)
 }

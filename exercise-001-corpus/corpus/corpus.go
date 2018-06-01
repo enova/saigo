@@ -1,9 +1,9 @@
 package corpus
 
 import (
+	"fmt"
 	"sort"
 	"strings"
-	"fmt"
 )
 
 // WordCount object that represent the word and its count
@@ -35,6 +35,7 @@ func Analyze(s string) []WordCount {
 	return wordCount
 }
 
+// Remove non alphabet characters
 func removeNonAlphaCharacters(s string) string {
 	r := strings.NewReplacer("\n", "",
 		".", "",
@@ -59,12 +60,14 @@ func createMap(sSlice []string) map[string]int {
 	var sMap = make(map[string]int)
 
 	for _, word := range sSlice {
-		_, ok := sMap[word]
-		if ok {
-			sMap[word]++
-		} else {
-			counter := 1
-			sMap[word] = counter
+		if word != "" {
+			_, ok := sMap[word]
+			if ok {
+				sMap[word]++
+			} else {
+				counter := 1
+				sMap[word] = counter
+			}
 		}
 	}
 
