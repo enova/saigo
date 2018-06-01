@@ -45,6 +45,26 @@ func (c *Circle) Area() float64 {
 	return math.Pi * c.radius * c.radius
 }
 
+////////////
+// Circle //
+////////////
+
+type EqiTriangle struct {
+	side float64
+}
+
+func (et *EqiTriangle) Name() string {
+	return "EqiTriangle"
+}
+
+func (et *EqiTriangle) Perimeter() float64 {
+	return 3 * et.side
+}
+
+func (et *EqiTriangle) Area() float64 {
+	return 3 
+}
+
 ////////////////
 // Efficiency //
 ////////////////
@@ -70,4 +90,7 @@ func main() {
 
 	c := Circle{radius: 10.0}
 	Efficiency(&c)
+
+  et := EqiTriangle{side: 50}
+  Efficiency(&et)
 }

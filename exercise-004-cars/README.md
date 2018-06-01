@@ -12,7 +12,7 @@ that manipulates cookies. Explain what each line of code does.
 Also fire up a browser and try hitting the different routes. See what happens
 when you hit `peek` before `poke`.
 
-```go
+```
 exhibit-a/server.go
 -------------------
 
@@ -73,7 +73,7 @@ add the vehicle to the list and then present that same list back to the view.
 
 The template `play.html` assumes that the following data parameter `View` is presented:
 
-```go
+```
 type Vehicle struct {
 	Name  string
 	Count int
