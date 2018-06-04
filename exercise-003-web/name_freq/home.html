@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <title>Name and Frequencies</title>
+
+  <body>
+    <form action="/home" method="POST">
+      <input type="text" name="name" placeholder="Enter Name">
+      <input type="submit" value="Enter"/>
+    </form>
+
+    {{ range $key, $value := . }}
+      <li><strong>{{ $key }}</strong>: {{ $value }}</li>
+    {{ end }}
+  </body>
+</html>
