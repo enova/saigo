@@ -44,10 +44,6 @@ func join(w http.ResponseWriter, r *http.Request) {
 	playT.Execute(w, view)
 }
 
-func play(w http.ResponseWriter, r *http.Request) {
-	
-}
-
 func add(w http.ResponseWriter, r *http.Request) {
 	username, err := r.Cookie("username")
 	if err != nil {
@@ -55,7 +51,7 @@ func add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	vehicleName := r.Form.Get("vehicle")
+	//vehicleName := r.Form.Get("vehicle")
 
 	view := View{ Username: "test" }
 	fmt.Printf("Username from cookie = %v", username)
@@ -122,7 +118,6 @@ func main() {
 	http.HandleFunc("/hide", hide)
 	http.HandleFunc("/", home)
 	http.HandleFunc("/join", join)
-	http.HandleFunc("/play", play)
 	http.HandleFunc("/add", add)
 	http.HandleFunc("/exit", exit)
 	http.ListenAndServe(":8080", nil)
