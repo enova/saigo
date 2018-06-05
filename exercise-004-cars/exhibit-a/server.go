@@ -10,6 +10,7 @@ import (
 var joinT *template.Template
 var playT *template.Template
 var vehicles = Vehicles{}
+var views = make([]View, 0)
 
 type Vehicle struct {
 	Name  string
@@ -37,20 +38,21 @@ func home(w http.ResponseWriter, r *http.Request) {
 func join(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	poke(w, r)
-	view := View{ Username: r.FormValue("username") }
-
-	playT.Execute(w, view)
+	username := r.FormValue("username")
+	view := getView(username)
+	vehicles = view.Vehicles
+	playT.Execute(w, &view)
 }
 
 func add(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := peek(w, r)
 
+	view := getView(username)
+
 	vehicle := r.Form.Get("vehicle")
 	addVehicle(vehicle)
-
-	view := View{ Username: username, Vehicles: vehicles }
-
+	view = updateView(username)
 	playT.Execute(w, &view)
 }
 
@@ -66,16 +68,39 @@ func isVehicleExist(vehicle string) bool {
 		if vehicle == v.Name {
 			v.Count++
 			found = true
+			break
 		}
 	}
 	return found
+}
+
+func updateView(username string) View {
+	view := View {}
+	for i := 0; i < len(views); i++ {
+		if views[i].Username == username {
+			views[i].Vehicles = vehicles
+			return views[i]
+		}
+	}
+	return view
+}
+
+func getView(username string) View {
+	for i := 0; i < len(views); i++ {
+		if views[i].Username == username {
+			return views[i]
+		}
+	}
+	view := View{ Username: username }
+	views = append(views, view)
+
+	return view
 }
 
 func exit(w http.ResponseWriter, r *http.Request) {
 	hide(w, r)
 	joinT.Execute(w, nil)
 }
-
 
 func inOneYear() time.Time {
 	return time.Now().AddDate(1, 0, 0)
