@@ -15,4 +15,3 @@ Here is the recommended practice for learners and instructors:
   2. Present your solutions to the instructor
 
 During the session your instructor may choose to ask you additional questions about the material.
-TestNick
