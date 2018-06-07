@@ -10,45 +10,74 @@ type RandoRex struct {
 }
 
 // Type returns the type of the player
-func (p *RandoRex) Type() string {
+func (r *RandoRex) Type() string {
 	return "RandoRex"
 }
 
 // Play returns a move
-func (p *RandoRex) Play() int {
+func (r *RandoRex) Play() int {
 	choice := rand.Int() % 3
 	return choice
 }
 
-// PlayerB information
-type PlayerB struct {
-
+// Flipper information
+type Flipper struct {
+	choice1 int
+	choice2 int
 }
 
+var flipperLastChoice int
+
 // Type returns the type of the player
-func (p *PlayerB) Type() string {
-	return "PlayerB"
+func (f *Flipper) Type() string {
+	return "Flipper"
 }
 
 // Play returns a move
-func (p *PlayerB) Play() int {
-	choice := rand.Int() % 5
-	return choice
+func (f *Flipper) Play() int {
+	if flipperLastChoice != f.choice1 {
+		flipperLastChoice = f.choice1
+		return f.choice1
+	} else {
+		flipperLastChoice = f.choice2
+		return f.choice2
+	}
 }
 
-// PlayerC information
-type PlayerC struct {
-
+// Obsessed information
+type Obsessed struct {
+	choice int
 }
 
 // Type returns the type of the player
-func (p *PlayerC) Type() string {
-	return "PlayerC"
+func (o *Obsessed) Type() string {
+	return "Obsessed"
 }
 
 // Play returns a move
-func (p *PlayerC) Play() int {
-	choice := rand.Int() % 2
+func (o *Obsessed) Play() int {
+	return o.choice
+}
+
+var cycloneLastMove = 1
+
+// Cyclone information
+type Cyclone struct {
+}
+
+// Type returns the type of the player
+func (c *Cyclone) Type() string {
+	return "Cyclone"
+}
+
+// Play returns a move
+func (c *Cyclone) Play() int {
+	choice := cycloneLastMove
+	cycloneLastMove++
+	if cycloneLastMove == 3 {
+		cycloneLastMove = 1
+	}
+
 	return choice
 }
 
