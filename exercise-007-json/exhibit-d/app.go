@@ -8,9 +8,13 @@ import (
 	"os"
 )
 
-// Phone ...
+// Phone Information
 type Phone struct {
-	Name string `json:"name"`
+	Name 		string 	`json:"name"`
+	Age 		int 	`json:"age"`
+	ID      	string  `json:"id"'`
+	Snippet 	string 	`json:"snippet"`
+	ImageURL 	string 	`json:"imageUrl"`
 }
 
 var allPhones []Phone
