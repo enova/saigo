@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <title>Phones</title>
+
+  <body>
+    {{ range . }}
+      {{ .Name }}: {{ .Snippet }}<br>
+      {{ if .Carrier }}
+        Carrier: {{.Carrier}}<br>
+      {{ end }}
+      <img src="{{ .ImageUrl }}"><br>
+    {{ end }}
+  </body>
+</html>

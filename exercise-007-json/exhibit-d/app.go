@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -10,10 +11,14 @@ import (
 
 // Phone ...
 type Phone struct {
-	Name string `json:"name"`
+	Name     string `json:"name"`
+	Snippet  string `json:"snippet`
+	ImageUrl string `json:"imageUrl"`
+	Carrier  string `json:"carrier"`
 }
 
 var allPhones []Phone
+var phoneT = template.Must(template.ParseFiles("phone.html"))
 
 func setup() {
 	data, err := ioutil.ReadFile("phones.json")
@@ -29,11 +34,12 @@ func setup() {
 }
 
 func phones(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(allPhones)
+	// json.NewEncoder(w).Encode(allPhones)
+	phoneT.Execute(w, &allPhones)
 }
 
 func main() {
 	setup()
 	http.HandleFunc("/phones", phones)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe("localhost:8080", nil)
 }
