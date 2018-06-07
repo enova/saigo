@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-// Phone ...
+// Phone Information
 type Phone struct {
 	Name 		string 	`json:"name"`
 	Age 		int 	`json:"age"`
