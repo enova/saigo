@@ -5,6 +5,28 @@ import (
 	"math"
 )
 
+
+////////////
+// Square //
+////////////
+
+type Rectangle struct {
+	width 	float64
+	length 	float64
+}
+
+func (r *Rectangle) Name() string {
+	return "Rectangle"
+}
+
+func (r *Rectangle) Perimeter() float64 {
+	return 2 * r.width + 2 * r.length
+}
+
+func (r *Rectangle) Area() float64 {
+	return r.length * r.width
+}
+
 ////////////
 // Square //
 ////////////
@@ -70,4 +92,7 @@ func main() {
 
 	c := Circle{radius: 10.0}
 	Efficiency(&c)
+
+	r := Rectangle{width: 10.0, length: 5}
+	Efficiency(&r)
 }
