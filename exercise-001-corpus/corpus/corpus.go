@@ -61,12 +61,10 @@ func createMap(sSlice []string) map[string]int {
 
 	for _, word := range sSlice {
 		if word != "" {
-			_, ok := sMap[word]
-			if ok {
+			if _, ok := sMap[word]; ok {
 				sMap[word]++
 			} else {
-				counter := 1
-				sMap[word] = counter
+				sMap[word] = 1
 			}
 		}
 	}
