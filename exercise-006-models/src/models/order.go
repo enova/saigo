@@ -2,8 +2,7 @@ package models
 
 import (
 	"time"
-
-	"github.com/jmoiron/sqlx"
+	"fmt"
 )
 
 // Order ...
@@ -16,17 +15,12 @@ type Order struct {
 	UpdatedAt  time.Time
 }
 
-// NewOrder ...
-func NewOrder(db *sqlx.DB, customerID int, productID int, quantity int) error {
-	return nil
-}
-
-// Update Order ...
-func UpdateOrder(db *sqlx.DB, o *Order) error {
-	return nil
-}
-
-// DeleteOrder ...
-func DeleteOrder(db *sqlx.DB, orderID int) error {
-	return nil
+func (o *Order) ToString() string {
+	return fmt.Sprintf(
+		"(Order#%d for Customer#%d: Product#%d [x%d])",
+		o.ID,
+		o.CustomerID,
+		o.ProductID,
+		o.Quantity,
+	)
 }
