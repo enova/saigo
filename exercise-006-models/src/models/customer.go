@@ -2,8 +2,7 @@ package models
 
 import (
 	"time"
-
-	"github.com/jmoiron/sqlx"
+	"fmt"
 )
 
 // Customer ...
@@ -18,37 +17,17 @@ type Customer struct {
 	UpdatedAt time.Time
 }
 
-// Refresh ...
-func (c *Customer) Refresh(db *sqlx.DB) error {
-	return nil
+func (c *Customer) FullName() string {
+	return c.FirstName + " " + c.LastName
 }
 
-// NewCustomer ...
-func NewCustomer(db *sqlx.DB, email string, first_name string, last_name string, birth_date time.Time) (*Customer, error) {
-	return nil, nil
+func (c *Customer) ToString() string {
+	return fmt.Sprintf(
+		"(%d: %s) Email: %s, Born: %s",
+		c.ID,
+		c.FullName(),
+		c.Email,
+		c.BirthDate.Format("2006-01-02"),
+	)
 }
 
-// DeleteCustomer ...
-func DeleteCustomer(db *sqlx.DB, id int) error {
-	return nil
-}
-
-// UpdateCustomer ...
-func UpdateCustomer(db *sqlx.DB, u *Customer) error {
-	return nil
-}
-
-// FindCustomerByEmail ...
-func FindCustomerByEmail(db *sqlx.DB, email string) (*Customer, error) {
-	return nil, nil
-}
-
-// FindCustomerByID ...
-func FindCustomerByID(db *sqlx.DB, id int) (*Customer, error) {
-	return nil, nil
-}
-
-// AllCustomers ...
-func AllCustomers(db *sqlx.DB) ([]*Customer, error) {
-	return nil, nil
-}

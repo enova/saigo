@@ -1,0 +1,14 @@
+{
+  "host": "localhost",
+  "port": 5432,
+  "username": "test",
+  "password": "test",
+  "database": "bar",
+  "sslmode": "disable",
+  "migration-table": "public.schema_migrations",
+  "migration-folder": "db/migrate",
+  "dump-file": "db/dump.sql",
+  "column-type": "integer",
+  "format": "unix",
+  "seed-tables": [ ]
+}
