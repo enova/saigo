@@ -7,8 +7,8 @@ import (
   _ "github.com/lib/pq"
 )
 
-func main() {
-  corm := orm.NewORM()
+func exhibitCustomer() {
+  corm := orm.ForCustomer()
   cust, err := corm.NewCustomer("a7@b.com", "Richard", "Smith", time.Now())
   if err != nil {
     fmt.Println("There was a problem inserting the user:")
@@ -68,4 +68,40 @@ func main() {
       fmt.Println("    ", customer.ToString())
     }
   }
+}
+
+func exhibitOrders() {
+  corm := orm.ForCustomer()
+  cust, err := corm.FindCustomerByID(1)
+
+  oorm := orm.ForOrder()
+  ord, err := oorm.NewOrder(cust.ID, 1, 15)
+  if err != nil {
+    fmt.Println("There was a problem inserting the order:")
+    fmt.Println(err)
+  } else {
+    fmt.Println("New Order Placed:", ord.ToString())
+  }
+
+  ord.Quantity = 78
+  err = oorm.UpdateOrder(ord)
+  if err != nil {
+    fmt.Println("There was a problem updating the order:")
+    fmt.Println(err)
+  } else {
+    fmt.Println("Order Updated:", ord.ToString())
+  }
+
+  err = oorm.DeleteOrder(ord.ID)
+  if err != nil {
+    fmt.Println("There was a problem deleting the order:")
+    fmt.Println(err)
+  } else {
+    fmt.Println("Order Deleted:", ord.ToString())
+  }
+}
+
+func main() {
+  exhibitCustomer()
+  exhibitOrders()
 }

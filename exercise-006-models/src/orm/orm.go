@@ -5,12 +5,19 @@ import (
   "github.com/jmoiron/sqlx"
   "log"
 )
-
-type CustomerORM struct {
+type GenericORM struct {
   Db *sqlx.DB
 }
 
-func (cm *CustomerORM) Init() {
+type CustomerORM struct {
+  GenericORM
+}
+
+type OrderORM struct {
+  GenericORM
+}
+
+func (cm *GenericORM) Init() {
   err := errors.New("w/e")
   cm.Db, err = sqlx.Connect(
     "postgres",
@@ -22,8 +29,14 @@ func (cm *CustomerORM) Init() {
   }
 }
 
-func NewORM() CustomerORM {
+func ForCustomer() CustomerORM {
   newOrm := CustomerORM{}
+  newOrm.Init()
+  return newOrm
+}
+
+func ForOrder() OrderORM {
+  newOrm := OrderORM{}
   newOrm.Init()
   return newOrm
 }

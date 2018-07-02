@@ -5,7 +5,7 @@ import (
   "../models"
 )
 
-var qInsert = `
+var qCustInsert = `
   INSERT INTO customers (
     email,
     first_name,
@@ -37,7 +37,7 @@ func (cm *CustomerORM) NewCustomer(
   // Attempt to insert
   tx := cm.Db.MustBegin()
   row := tx.QueryRow(
-    qInsert,
+    qCustInsert,
     cust.Email,
     cust.FirstName,
     cust.LastName,

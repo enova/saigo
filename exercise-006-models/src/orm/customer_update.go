@@ -2,7 +2,7 @@ package orm
 
 import "../models"
 
-var qUpdate = `
+var qCustUpdate = `
   UPDATE customers
   SET 
     email=COALESCE($2, email),
@@ -18,7 +18,7 @@ func (cm *CustomerORM) UpdateCustomer(c *models.Customer) error {
   // Attempt to update
   tx := cm.Db.MustBegin()
   row := tx.QueryRow(
-    qUpdate,
+    qCustUpdate,
     c.ID,
     c.Email,
     c.FirstName,

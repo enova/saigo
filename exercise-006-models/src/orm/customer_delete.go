@@ -1,6 +1,6 @@
 package orm
 
-var qDelete = `
+var qCustDelete = `
   DELETE FROM customers
   WHERE customer_id=$1
 `
@@ -8,7 +8,7 @@ var qDelete = `
 // DeleteCustomer ...
 func (cm *CustomerORM) DeleteCustomer(id int) error {
   tx := cm.Db.MustBegin()
-  _, error := tx.Exec(qDelete, id)
+  _, error := tx.Exec(qCustDelete, id)
 
   // Return the result
   if error == nil {
