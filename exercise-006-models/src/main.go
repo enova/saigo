@@ -101,7 +101,27 @@ func exhibitOrders() {
   }
 }
 
+func exhibitProducts() {
+  porm := orm.ForProduct()
+  prod, err := porm.FindProductByName("kayak")
+  if err != nil {
+    fmt.Println("There was a problem finding the product:")
+    fmt.Println(err)
+  } else {
+    fmt.Println("Product Found:", prod.ToString())
+  }
+
+  prod, err = porm.FindProductByID(4)
+  if err != nil {
+    fmt.Println("There was a problem finding the product:")
+    fmt.Println(err)
+  } else {
+    fmt.Println("Product Found:", prod.ToString())
+  }
+}
+
 func main() {
   exhibitCustomer()
   exhibitOrders()
+  exhibitProducts()
 }

@@ -9,13 +9,9 @@ type GenericORM struct {
   Db *sqlx.DB
 }
 
-type CustomerORM struct {
-  GenericORM
-}
-
-type OrderORM struct {
-  GenericORM
-}
+type CustomerORM struct { GenericORM }
+type OrderORM struct { GenericORM }
+type ProductORM struct { GenericORM }
 
 func (cm *GenericORM) Init() {
   err := errors.New("w/e")
@@ -37,6 +33,12 @@ func ForCustomer() CustomerORM {
 
 func ForOrder() OrderORM {
   newOrm := OrderORM{}
+  newOrm.Init()
+  return newOrm
+}
+
+func ForProduct() ProductORM {
+  newOrm := ProductORM{}
   newOrm.Init()
   return newOrm
 }
