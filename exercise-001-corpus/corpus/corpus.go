@@ -6,12 +6,14 @@ import (
 	"sort"
 )
 
-type pair struct {
+// Pair contains frequency of word's usage
+type Pair struct {
 	Word string
 	Count int
 }
 
-func WordCount(s string) []pair {
+// WordCount will return a slice of Pairs, reverse ordered by count
+func WordCount(s string) []Pair {
 	// Let's clean up the string first
 	r, _ := regexp.Compile("[^[[:alnum:][:space:]']+")
 	s = r.ReplaceAllString(strings.ToLower(s), "")
@@ -19,13 +21,13 @@ func WordCount(s string) []pair {
 	frequency := make(map[string]int)
 
 	for _, w := range strings.Fields(s) {
-		frequency[w] += 1
+		frequency[w]++
 	}
 
-	var pairs []pair
+	var pairs []Pair
 
 	for word, count := range frequency {
-		p := pair{Word: word, Count: count }
+		p := Pair{Word: word, Count: count }
 		pairs = append(pairs, p)
 	}
 

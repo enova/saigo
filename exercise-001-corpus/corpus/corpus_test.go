@@ -5,7 +5,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Analyze(s string) []pair {
+func Analyze(s string) []Pair {
 	return WordCount(s)
 }
 
