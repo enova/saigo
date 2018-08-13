@@ -1,0 +1,6 @@
+
+gofmt -w .
+golint ./...
+go build word_count.go
+# ./word_count 7oldsamr.txt
+# go test ./...
