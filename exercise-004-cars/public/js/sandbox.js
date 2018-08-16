@@ -24,8 +24,8 @@ var VehicleSandbox = (function() {
     for(var x=0; x < vehicleList.length; x++) {
       var vehicle = vehicleList[x];
 
-      var _name   = vehicle["Name"].replace(/\ /, '').split(':')[0];
-      var _speed  = vehicle["Name"].replace(/\ /, '').split(':')[1];
+      var _name   = vehicle["Name"];
+      var _speed  = vehicle["Speed"];
       var _count  = vehicle["Count"];
 
       for(var y=0; y < _count; y++) {

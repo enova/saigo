@@ -76,12 +76,14 @@
               <tr>
                 <th>#</th>
                 <th>Vehicle</th>
+                <th>Speed</th>
                 <th>Count</th>
               </tr>
               {{ range .Vehicles.List }}
               <tr>
                 <th scope="row">x</th>
                 <td>{{ .Name }}</td>
+                <td>{{ .Speed }}</td>
                 <td>{{ .Count }}</td>
               </tr>
               {{ end }}
