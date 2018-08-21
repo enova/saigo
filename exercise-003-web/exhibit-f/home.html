@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <title>Learing GO</title>
+    <body>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Enter Name">
+            <input type="submit" value="Enter"/>
+        </form>
+
+        <h2>User attempts:</h2>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Attempts</th>
+            </tr>
+            {{range $name, $attempts := .}}
+                <tr>
+                    <td>{{$name}}</td>
+                    <td>{{$attempts}}</td>
+                </tr>
+            {{end}}    
+        </table>
+    </body>
+</html>
