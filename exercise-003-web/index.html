@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Exercise</title>
+<form action="/submit" method="post">
+  <label for="name">Name:</label>
+  <input type="text" name="name" id="name" autofocus required>
+  <button type="submit">Submit</button>
+</form>
+<h2>Visitors</h2>
+<ol>
+  {{ range $index, $name := .Visitors }}
+  <li>Name: {{ .Name }}, times: {{ .Count }}</li>
+  {{ end }}
+</ol>
