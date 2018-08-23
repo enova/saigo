@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+// below uses tags that map struct fields to json names
+// previously used in exercise 006 for mapping to DB columns
 type Element struct {
 	Name         string  `json:"name"`
 	Symbol       string  `json:"symbol"`
