@@ -17,12 +17,16 @@ type Element struct {
 }
 
 func main() {
+	// read in file containing json blob
 	data, err := ioutil.ReadFile("exhibit-c/chemistry.json")
 	if err != nil {
 		panic("Error reading file")
 	}
 
+	// initialize empty Element struct
 	e := Element{}
+	// parses the JSON-encoded data and stores the result in the value pointed to by (in this case) &e
+	// use struct tags to map json blob to Element struct
 	err = json.Unmarshal(data, &e)
 	if err != nil {
 		panic(err)
