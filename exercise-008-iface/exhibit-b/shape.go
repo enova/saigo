@@ -28,6 +28,7 @@ func (s *Square) Area() float64 {
 // Efficiency //
 ////////////////
 
+// define an interface so that multriple shape types can use same method names and return values
 type Shape interface {
 	Name() string
 	Perimeter() float64

@@ -8,19 +8,19 @@ import (
 
 // Moves
 const (
-	Rock = iota
+	Rock = iota //iota identifier is used in const declarations to simplify definitions of incrementing numbers
 	Paper
 	Scissors
 )
 
 // Game ...
 type Game struct {
-	players []*Player
+	players []Player
 	points  []int
 }
 
 // Add adds a player to the game
-func (g *Game) Add(p *Player) {
+func (g *Game) Add(p Player) {
 	g.players = append(g.players, p)
 	g.points = append(g.points, 0)
 }
