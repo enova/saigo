@@ -6,13 +6,20 @@ import (
 )
 
 type Element struct {
-	Name         string  `json:"name"`
-	Symbol       string  `json:"symbol"`
-	AtomicNumber int     `json:"atomic_number"`
+	// maps the struct field to name field in the json
+	Name string `json:"name"`
+	// maps the struct field to symbol field in the json
+	Symbol string `json:"symbol"`
+	// maps the struct field to atomic_number field in the json
+	AtomicNumber int `json:"atomic_number"`
+	// maps the struct field to automic_weight field in the json
 	AtomicWeight float64 `json:"atomic_weight"`
-	Category     string  `json:"category"`
-	Group        int     `json:"group"`
-	Period       int     `json:"period"`
+	// maps the struct field to category field in the json
+	Category string `json:"category"`
+	// maps the struct field to group field in the json
+	Group int `json:"group"`
+	// maps the struct field to period field in the json
+	Period int `json:"period"`
 }
 
 func main() {

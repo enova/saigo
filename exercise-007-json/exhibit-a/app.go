@@ -27,10 +27,18 @@ func main() {
 		Period:       6,
 	}
 
+	// creates a json representation of e
 	data, err := json.Marshal(&e)
 	if err != nil {
 		panic(err)
 	}
 
+	// creates a json representation of e with no prefix and each line with appropriate indentations of tabs
+	indentedData, err := json.MarshalIndent(&e, "", "\t")
+	if err != nil {
+		panic(err)
+	}
+
 	fmt.Println(string(data))
+	fmt.Println(string(indentedData))
 }
