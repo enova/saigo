@@ -23,6 +23,7 @@ func main() {
 	}
 
 	e := Element{}
+	// Parses the json data and stores the result in e
 	err = json.Unmarshal(data, &e)
 	if err != nil {
 		panic(err)
