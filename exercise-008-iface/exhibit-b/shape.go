@@ -12,6 +12,7 @@ type Square struct {
 	side float64
 }
 
+// Define all three methods in Shape interface for Square struct so that it implements the interface..
 func (s *Square) Name() string {
 	return "Square"
 }
@@ -28,6 +29,7 @@ func (s *Square) Area() float64 {
 // Efficiency //
 ////////////////
 
+// Create an interface called Shape with three methods - Name(), Perimeter(), Area()
 type Shape interface {
 	Name() string
 	Perimeter() float64
