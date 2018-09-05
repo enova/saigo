@@ -4,23 +4,19 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
-)
 
-// Moves
-const (
-	Rock = iota
-	Paper
-	Scissors
+	p "github.com/akash-ksu/saigo/exercise-009-rock/src/rock/players"
+	r "github.com/akash-ksu/saigo/exercise-009-rock/src/rock/rules"
 )
 
 // Game ...
 type Game struct {
-	players []*Player
+	players []p.Player
 	points  []int
 }
 
 // Add adds a player to the game
-func (g *Game) Add(p *Player) {
+func (g *Game) Add(p p.Player) {
 	g.players = append(g.players, p)
 	g.points = append(g.points, 0)
 }
@@ -45,7 +41,7 @@ func (g *Game) RoundRobin() {
 			// Determine Winner
 			moveA := a.Play()
 			moveB := b.Play()
-			winner := Winner(moveA, moveB)
+			winner := r.Winner(moveA, moveB)
 
 			// Update Scores
 			switch {
