@@ -1,9 +1,11 @@
 
-build:
-	go build word_count.go
+BIN_NAME := out
+
+$(BIN_NAME): *.go
+	go build -o $@ .
 
 run:
-	./word_count 7oldsamr.txt
+	./$(BIN_NAME) 7oldsamr.txt
 
 dependencies:
 	go get -u golang.org/x/lint/golint
@@ -14,6 +16,6 @@ pre-build:
 	golint .
 
 clean:
-	rm word_count
+	rm $(BIN_NAME)
 
-.PHONY: build run dependencies clean
+.PHONY: run dependencies clean
