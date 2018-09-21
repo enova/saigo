@@ -43,8 +43,8 @@ func (g *Game) RoundRobin() {
 			b := g.players[j]
 
 			// Determine Winner
-			moveA := a.Play()
-			moveB := b.Play()
+			moveA := (*a).Play()
+			moveB := (*b).Play()
 			winner := Winner(moveA, moveB)
 
 			// Update Scores
@@ -63,6 +63,6 @@ func (g *Game) Display() {
 
 	// For Each Player
 	for i, p := range g.players {
-		fmt.Printf("%-15s %5d\n", p.Type(), g.points[i])
+		fmt.Printf("%-15s %5d\n", (*p).Type(), g.points[i])
 	}
 }
