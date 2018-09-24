@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func SaveState(users *map[string]int, dbPath string) {
+func saveState(users *map[string]int, dbPath string) {
 	bytes, err := json.Marshal(*users)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Can't serialize")
@@ -15,8 +15,8 @@ func SaveState(users *map[string]int, dbPath string) {
 	ioutil.WriteFile(dbPath, bytes, 0644)
 }
 
-func RestoreState(users *map[string]int, dbPath string) {
-	if !Exists(DbPath) {
+func restoreState(users *map[string]int, dbPath string) {
+	if !exists(DbPath) {
 		return
 	}
 	data, err := ioutil.ReadFile(dbPath)
@@ -32,7 +32,7 @@ func RestoreState(users *map[string]int, dbPath string) {
 	}
 }
 
-func Exists(name string) bool {
+func exists(name string) bool {
 	if _, err := os.Stat(name); err != nil {
 		if os.IsNotExist(err) {
 			return false

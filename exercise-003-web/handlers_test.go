@@ -23,7 +23,7 @@ func TestHandleRoot(t *testing.T) {
 	assert := assert.New(t)
 	req, _ := http.NewRequest("GET", "localhost:8080/home", nil)
 	w := httptest.NewRecorder()
-	HandleRoot(w, req)
+	handleRoot(w, req)
 	const successHttpCode = 200
 	const successString = "Learning Go"
 	assert.Equal(w.Code, successHttpCode)
@@ -35,7 +35,7 @@ func TestHandlePostUsersBlank(t *testing.T) {
 	data := url.Values{"username": {""}}
 	assert.Equal(len(users), 0)
 	w, req := buildPostUsersRequest(&data)
-	HandleUsers(w, req)
+	handleUsers(w, req)
 
 	assert.Equal(w.Code, 400)
 	assert.Equal(len(users), 0)
@@ -45,8 +45,8 @@ func TestHandlePostUsersValid(t *testing.T) {
 	assert := assert.New(t)
 	data := url.Values{"username": {"test"}}
 	w, req := buildPostUsersRequest(&data)
-	HandleUsers(w, req)
-	HandleUsers(w, req)
+	handleUsers(w, req)
+	handleUsers(w, req)
 	assert.Equal(w.Code, 307)
 	assert.Equal(users["test"], 2)
 }

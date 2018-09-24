@@ -40,7 +40,7 @@ func presentUsers() []map[string]string {
 	return presentedUsers
 }
 
-func HandleRoot(w http.ResponseWriter, _ *http.Request) {
+func handleRoot(w http.ResponseWriter, _ *http.Request) {
 	homeT.Execute(w, presentUsers())
 }
 
@@ -58,7 +58,7 @@ func handlePostUsers(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func HandleUsers(w http.ResponseWriter, r *http.Request) {
+func handleUsers(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
 		handlePostUsers(w, r)
@@ -67,11 +67,5 @@ func HandleUsers(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Mount() {
-	setup("./templates")
-	RestoreState(&users, DbPath)
-}
 
-func Unmount() {
-	SaveState(&users, DbPath)
-}
+

@@ -8,7 +8,8 @@ import (
 )
 
 func serve(){
-	Mount()
+	setup("./templates")
+	restoreState(&users, DbPath)
 	server := &http.Server{Addr: ":8080", Handler: buildHandlers()}
 
 
@@ -22,14 +23,14 @@ func serve(){
 
 func stop(server *http.Server, stopSignal chan os.Signal){
 	<-stopSignal
-	Unmount()
+	saveState(&users, DbPath)
 	server.Shutdown(context.Background())
 }
 
 func buildHandlers() * http.ServeMux{
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", HandleRoot)
-	mux.HandleFunc("/users", HandleUsers)
+	mux.HandleFunc("/", handleRoot)
+	mux.HandleFunc("/users", handleUsers)
 	return mux
 }
 
