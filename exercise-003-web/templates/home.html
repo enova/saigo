@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <title>Learning Go</title>
+
+  <body>
+    <form action="/users" method="POST">
+      <input type="text" name="username" placeholder="Enter Name">
+      <input type="submit" value="Sign-Up"/>
+    </form>
+   <table>
+       <tr>
+           <th>Name</th><th>Count</th>
+       </tr>
+        {{ range . }}
+            <tr>
+                <td>{{ .name }}</td>
+                <td>{{ .count }}</td>
+            </tr>
+        {{ end }}
+
+   </table>
+  </body>
+</html>
