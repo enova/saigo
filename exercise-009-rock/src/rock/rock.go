@@ -31,35 +31,28 @@ func buildNormalizedPlayerTypesMap() map[string]int{
 		"cyclone": PlayerTypeCyclone}
 }
 
-func parseMoves(moves []string) []int{
-	var parsedMoves []int
-	for _, m := range moves {
-		parsedMoves = append(parsedMoves, moveNamesMapToMoves[strings.ToLower(m)])
-	}
-	return parsedMoves
-}
+func parseArguments() []Arg {
+	playerConfigs := flag.String(
+		"players",
+		"RandoRex:1,Flipper:1:ps,Obsessed:1:p,Cyclone:1",
+		"Specifies players and their types")
+	flag.Parse()
 
-func parseArguments(playerConfigs string) []Arg{
+	invalidArgument := func(){
+		panic(errors.New("invalid moves"))
+	}
 	var args []Arg
-	for _, playerConfig := range strings.Split(playerConfigs, ",") {
+	for _, playerConfig := range strings.Split(*playerConfigs, ",") {
 		playerInfo := strings.Split(playerConfig, ":")
 		quantity, _ := strconv.Atoi(playerInfo[1])
 		playerType := strings.ToLower(playerInfo[0])
 		var moves []int
 		if len(playerInfo) > 2 {
-			moves = parseMoves(strings.Split(playerInfo[2], ""))
+			for _, m := range strings.Split(playerInfo[2], "") {
+				moves = append(moves, moveNamesMapToMoves[strings.ToLower(m)])
+			}
 		}
 		arg := Arg{normalizedPlayerTypesMap[playerType], quantity, moves}
-		args = append(args, arg)
-	}
-	return args
-}
-
-func validateArguments(args []Arg){
-	invalidArgument := func(){
-		panic(errors.New("invalid moves"))
-	}
-	for _, arg := range args {
 		moveCount := len(arg.moves)
 		switch arg.playerType {
 		case PlayerTypeRandoRex,PlayerTypeCyclone:
@@ -68,17 +61,10 @@ func validateArguments(args []Arg){
 			if moveCount != 1{invalidArgument()}
 		case PlayerTypeFlipper:
 			if moveCount != 2{invalidArgument()}
-
 		}
+		args = append(args, arg)
 	}
-}
-
-func buildGame(players []*Player) *Game{
-	var game Game
-	for _, p := range players {
-		game.Add(p)
-	}
-	return &game
+	return args
 }
 
 func buildPlayers(args []Arg) []*Player {
@@ -92,7 +78,11 @@ func buildPlayers(args []Arg) []*Player {
 	return players
 }
 
-func simulateGame(game *Game) {
+func simulateGame(players []*Player) {
+	var game Game
+	for _, p := range players {
+		game.Add(p)
+	}
 	// A Thousand Round-Robins!
 	for i := 0; i < 1000; i++ {
 		game.RoundRobin()
@@ -102,20 +92,8 @@ func simulateGame(game *Game) {
 }
 
 
-func captureArguments() *string {
-	playerConfigs := flag.String(
-		"players",
-		"RandoRex:1,Flipper:1:ps,Obsessed:1:p,Cyclone:1",
-		"Specifies players and their types")
-	flag.Parse()
-	return playerConfigs
-}
-
 func main() {
-	rawArgs := *captureArguments()
-	args := parseArguments(rawArgs)
-	validateArguments(args)
+	args := parseArguments()
 	players := buildPlayers(args)
-	game := buildGame(players)
-	simulateGame(game)
+	simulateGame(players)
 }
