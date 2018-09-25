@@ -10,21 +10,18 @@ func init(){
 	Truncate()
 }
 
-func TestOrder(t *testing.T) {
-	assert := assert.New(t)
-	assert.True(true)
-}
-
-func createValidOrder(productID int, quantity int) (*Product, *Customer){
+func createValidOrder(t *testing.T, productID int, quantity int) (*Product, *Customer){
+	t.Helper()
 	p, _ := NewProduct(GetConn(), productID, "test")
 	c, _ := NewCustomer(GetConn(), "test@example.com", "John", "Smith", time.Now())
-	NewOrder(GetConn(), c.ID, p.ID, quantity)
+	err := NewOrder(GetConn(), c.ID, p.ID, quantity)
+	assert.Nil(t, err)
 	return p, c
 }
 
 func TestNewOrder(t *testing.T) {
 	defer Truncate()
-	p, c := createValidOrder(1,1)
+	p, c := createValidOrder(t, 1,1)
 	o, _ := FindMostRecentOrder(GetConn())
 	assert.Equal(t, p.ID, o.ProductID)
 	assert.Equal(t, c.ID, o.CustomerID)
@@ -32,7 +29,7 @@ func TestNewOrder(t *testing.T) {
 
 func TestUpdateOrder(t *testing.T) {
 	defer Truncate()
-	createValidOrder(1,1)
+	createValidOrder(t, 1,1)
 	newQuantity := 100
 	o, _ := FindMostRecentOrder(GetConn())
 	o.Quantity = newQuantity
@@ -43,7 +40,7 @@ func TestUpdateOrder(t *testing.T) {
 
 func TestDeleteOrder(t *testing.T) {
 	defer Truncate()
-	createValidOrder(1,1)
+	createValidOrder(t, 1,1)
 	o, _ := FindMostRecentOrder(GetConn())
 	DeleteOrder(GetConn(), o.ID)
 	o, err := FindMostRecentOrder(GetConn())

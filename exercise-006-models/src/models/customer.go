@@ -28,6 +28,10 @@ func NewCustomer(db *sqlx.DB, email string, first_name string, last_name string,
 	var u Customer
 	query := "INSERT INTO customers (email, first_name, last_name, birth_date) VALUES($1,$2,$3,$4) RETURNING *"
 	err := db.Get(&u, query, email, first_name, last_name, birth_date)
+	if err != nil{
+		return nil, err
+	}
+
 	return &u, err
 }
 
@@ -57,6 +61,9 @@ func UpdateCustomer(db *sqlx.DB, u *Customer) error {
 func FindCustomerByEmail(db *sqlx.DB, email string) (*Customer, error) {
 	var u Customer
 	err := db.Get(&u, "SELECT * FROM customers WHERE email = $1", email)
+	if err != nil{
+		return nil, err
+	}
 	return &u, err
 }
 
@@ -64,6 +71,9 @@ func FindCustomerByEmail(db *sqlx.DB, email string) (*Customer, error) {
 func FindCustomerByID(db *sqlx.DB, id int) (*Customer, error) {
 	var u Customer
 	err := db.Get(&u, "SELECT * FROM customers WHERE customer_id = $1", id)
+	if err != nil {
+		return nil, err
+	}
 	return &u, err
 }
 
