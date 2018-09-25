@@ -112,7 +112,7 @@ func Efficiency(s Shape) {
 	fmt.Printf("Efficiency of a %s is %f\n", name, efficiency)
 }
 
-func EnsureTriangleSidesValid(parameters *[]float64){
+func ensureTriangleSidesValid(parameters *[]float64){
 	params := append([]float64{}, *parameters...)
 	sort.Slice(params, func(i,j int) bool{return params[i] < params[j]})
 	if params[0] + params[1] < params[2] {
@@ -120,30 +120,44 @@ func EnsureTriangleSidesValid(parameters *[]float64){
 	}
 }
 
-func Build(shape string, parameters ...float64) Shape {
-	switch(shape){
-	case "circle": return &Circle{radius:parameters[0]}
-	case "rectangle": return &Rectangle{width: parameters[0], height: parameters[1]}
+func build(shape string, parameters ...float64) Shape {
+	ensureArumentsValid := func (expected int, params []float64){
+		if expected != len(params) {
+			errorTemplate := "invalid arguments specified. Expected: %d received: %d"
+			errorMessage := fmt.Sprintf(errorTemplate, expected, len(params))
+			panic(errorMessage)
+		}
+	}
+	switch shape {
+	case "circle":
+		ensureArumentsValid(1, parameters)
+		return &Circle{radius:parameters[0]}
+	case "rectangle":
+		ensureArumentsValid(2, parameters)
+		return &Rectangle{width: parameters[0], height: parameters[1]}
 	case "triangle":
-		EnsureTriangleSidesValid(&parameters)
+		ensureArumentsValid(3, parameters)
+		ensureTriangleSidesValid(&parameters)
 		return &Triangle{side1: parameters[0], side2: parameters[1], side3: parameters[2]}
-	case "square": return &Square{side: parameters[0]}
+	case "square":
+		ensureArumentsValid(1, parameters)
+		return &Square{side: parameters[0]}
 	default:
-		panic(errors.New("Invalid shape: " + shape))
+		panic(errors.New("invalid shape: " + shape))
 	}
 }
 
 
 func main() {
-	s := Build("square", 10)
+	s := build("square", 10)
 	Efficiency(s)
 
-	c := Build("circle", 1,2,3)
+	c := build("circle", 1)
 	Efficiency(c)
 
-	r := Build("rectangle", 1,2)
+	r := build("rectangle", 1,2)
 	Efficiency(r)
 
-	t := Build("triangle", 10,9,3)
+	t := build("triangle", 10,9,3)
 	Efficiency(t)
 }
