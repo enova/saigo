@@ -7,5 +7,17 @@
       <input type="text" name="username" placeholder="Enter Name">
       <input type="submit" value="Sign-Up"/>
     </form>
+    <table>
+    <tr>
+        <th>User</th>
+        <th>Attempts</th>
+    </tr>
+    {{range $name, $attempts := .}}
+        <tr>
+            <td>{{$name}}</td>
+            <td>{{$attempts}}</td>
+        </tr>
+    {{end}}
+  </table>
   </body>
 </html>
