@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// View structure
 type View struct {
 	Name string
 	Age  int
