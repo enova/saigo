@@ -27,7 +27,7 @@ func main() {
 		Period:       6,
 	}
 
-	data, err := json.Marshal(&e)
+	data, err := json.MarshalIndent(&e,"", "\t")
 	if err != nil {
 		panic(err)
 	}
