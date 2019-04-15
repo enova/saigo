@@ -5,7 +5,7 @@ Learn to work with SQL in Go!
 This exercise assumes the learner is familiar with basic SQL. If you are new to SQL then you must first
 learn the basics before proceeding. Saigo uses [PostgreSQL](http://www.tutorialspoint.com/postgresql/) for all database work.
 
-Set up a local PostgreSQL server on your deveopment machine and create a database called `test`. Connect to the database
+Set up a local PostgreSQL server on your development machine, and create a database called `test`. Connect to the database
 (`$ psql test`) and copy the code in `migration_up.sql` to create the `people` table in your `test` database:
 
 ```
