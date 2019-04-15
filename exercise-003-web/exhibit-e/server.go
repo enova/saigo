@@ -7,16 +7,12 @@ import (
 
 var homeT *template.Template
 
-func setup(dir string) {
-	homeT = template.Must(template.ParseFiles(dir + "/exhibit-e/home.html"))
-}
-
 func home(w http.ResponseWriter, r *http.Request) {
 	homeT.Execute(w, nil)
 }
 
 func main() {
-	setup(".")
+	homeT = template.Must(template.ParseFiles("./exhibit-e/home.html"))
 	http.HandleFunc("/home", home)
 	http.ListenAndServe(":8080", nil)
 }
