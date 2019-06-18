@@ -10,7 +10,12 @@ import (
 
 // Phone ...
 type Phone struct {
-	Name string `json:"name"`
+	Name    string `json:"name"`
+	Age     int    `json:"age"`
+	ID      string `json:"id"`
+	Carrier string `json:"carrier"`
+	URL     string `json:"imageUrl"`
+	Snippet string `json:"snippet"`
 }
 
 var allPhones []Phone
@@ -29,11 +34,20 @@ func setup() {
 }
 
 func phones(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(allPhones)
+	pretty, err := json.MarshalIndent(allPhones, "", "    ")
+	if err != nil {
+		panic(err)
+	}
+
+	// the following command looks like garbage to human eyes
+	//json.NewEncoder(w).Encode(allPhones)
+
+	// this looks a lot better
+	fmt.Fprintf(w, string(pretty))
 }
 
 func main() {
 	setup()
-	http.HandleFunc("/phones", phones)
+	http.HandleFunc("/", phones)
 	http.ListenAndServe(":8080", nil)
 }

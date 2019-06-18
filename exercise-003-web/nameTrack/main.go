@@ -6,12 +6,12 @@ import (
 	"net/http"
 )
 
-var homeT = template.Must(template.ParseFiles("home.html"))
+var homeT = template.Must(template.ParseFiles("home.html")) // html/template lets us write the HTML in another file
 
 var table = map[string]int{} // global table to hold usernames and counts of visits
 
 func home(w http.ResponseWriter, r *http.Request) {
-	homeT.Execute(w, nil)
+	homeT.Execute(w, nil) // writes generated HTML to ResponseWriter
 
 	r.ParseForm()
 	visitor := r.Form.Get("username") //hold current visitor name
