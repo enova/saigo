@@ -21,7 +21,7 @@ func NewOrder(db *sqlx.DB, customerID int, productID int, quantity int) error {
 	return nil
 }
 
-// Update Order ...
+// UpdateOrder ...
 func UpdateOrder(db *sqlx.DB, o *Order) error {
 	return nil
 }
