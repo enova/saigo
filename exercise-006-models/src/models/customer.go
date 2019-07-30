@@ -24,7 +24,7 @@ func (c *Customer) Refresh(db *sqlx.DB) error {
 }
 
 // NewCustomer ...
-func NewCustomer(db *sqlx.DB, email string, first_name string, last_name string, birth_date time.Time) (*Customer, error) {
+func NewCustomer(db *sqlx.DB, email string, firstName string, lastName string, birthDate time.Time) (*Customer, error) {
 	return nil, nil
 }
 
