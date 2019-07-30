@@ -83,11 +83,8 @@ implements interfaces. What is it?
 
 ## Engineering Task
 
-Expand on `exhibit-c` by adding another shape or two.
-
-## Bonus
-
-Add a shape-factory that can create a shape given a type and a list of lengths:
+1. Expand on `exhibit-c` by adding another shape or two.
+1. Add a shape-factory that can create a shape given a type and a list of lengths:
 
 ```
 func Build(shape string, parameters ...float64) Shape
