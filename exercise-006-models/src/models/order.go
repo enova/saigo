@@ -1,9 +1,8 @@
 package models
 
 import (
+	"database/sql"
 	"time"
-
-	"github.com/jmoiron/sqlx"
 )
 
 // Order ...
@@ -17,16 +16,16 @@ type Order struct {
 }
 
 // NewOrder ...
-func NewOrder(db *sqlx.DB, customerID int, productID int, quantity int) error {
+func NewOrder(db *sql.DB, customerID int, productID int, quantity int) error {
 	return nil
 }
 
 // UpdateOrder ...
-func UpdateOrder(db *sqlx.DB, o *Order) error {
+func UpdateOrder(db *sql.DB, o *Order) error {
 	return nil
 }
 
 // DeleteOrder ...
-func DeleteOrder(db *sqlx.DB, orderID int) error {
+func DeleteOrder(db *sql.DB, orderID int) error {
 	return nil
 }

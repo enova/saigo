@@ -1,9 +1,8 @@
 package models
 
 import (
+	"database/sql"
 	"time"
-
-	"github.com/jmoiron/sqlx"
 )
 
 // Customer ...
@@ -19,36 +18,36 @@ type Customer struct {
 }
 
 // Refresh ...
-func (c *Customer) Refresh(db *sqlx.DB) error {
+func (c *Customer) Refresh(db *sql.DB) error {
 	return nil
 }
 
 // NewCustomer ...
-func NewCustomer(db *sqlx.DB, email string, firstName string, lastName string, birthDate time.Time) (*Customer, error) {
+func NewCustomer(db *sql.DB, email string, firstName string, lastName string, birthDate time.Time) (*Customer, error) {
 	return nil, nil
 }
 
 // DeleteCustomer ...
-func DeleteCustomer(db *sqlx.DB, id int) error {
+func DeleteCustomer(db *sql.DB, id int) error {
 	return nil
 }
 
 // UpdateCustomer ...
-func UpdateCustomer(db *sqlx.DB, u *Customer) error {
+func UpdateCustomer(db *sql.DB, u *Customer) error {
 	return nil
 }
 
 // FindCustomerByEmail ...
-func FindCustomerByEmail(db *sqlx.DB, email string) (*Customer, error) {
+func FindCustomerByEmail(db *sql.DB, email string) (*Customer, error) {
 	return nil, nil
 }
 
 // FindCustomerByID ...
-func FindCustomerByID(db *sqlx.DB, id int) (*Customer, error) {
+func FindCustomerByID(db *sql.DB, id int) (*Customer, error) {
 	return nil, nil
 }
 
 // AllCustomers ...
-func AllCustomers(db *sqlx.DB) ([]*Customer, error) {
+func AllCustomers(db *sql.DB) ([]*Customer, error) {
 	return nil, nil
 }
