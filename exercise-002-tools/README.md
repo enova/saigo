@@ -23,7 +23,7 @@ Golint does not emit errors or warnings, but “suggestions”: These suggestion
 Install and run golint over your current directory:
 
 ```bash
-$ go get github.com/golang/lint/golint
+$ go get -u golang.org/x/lint/golint
 $ golint ./...
 ```
 
