@@ -111,6 +111,4 @@ func main() {
 
 Only one attribute (`Name`) is being unmarshalled. Your job is to expand the `Phone` structure so that the unmarshalling will read the other attributes from the file and store them in the `Phone` slice.
 
-### Optional
-
-Create a database table for phones. When the server is started, if the table is empty, seed the table with the phones from the json file. The /phones endpoint should then return whatever records are found in the phones table.
+Next, you must create a database table for phones. When the server is started, if the table is empty, seed the table with the phones from the json file. The /phones endpoint should then return whatever records are found in the phones table.
