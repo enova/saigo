@@ -1,15 +1,15 @@
 # Saigo
-A series of (hopefully cool!) exercises for those eager to learn Go
+A series of (hopefully cool!) exercises for those eager to learn Go.
 
 
 ## Setting Up Your Go Environment
 
-As new versions of the Go suite are released you will want an
+As new versions of the Go suite are released, you will want an
 easy way to stay up to date. So please follow the [Setup](setup-environment.md)
 guide to install Go and build your workspace.
 
-It is best to get this right the first time around so if you have
-trouble please ask for help!
+It is best to get this right the first time around; so if you have
+trouble, please ask for help!
 
 
 ## Exercises
@@ -18,7 +18,7 @@ The Saigo exercises are intended to be a tool for the instructor. Experienced de
 to use them as a way to jump right in the pool. However, to get the most out of them it is recommended that
 learners find an instructor.
 
-Some of the exercises may require serveral days to complete. Learners should consider building solutions incrementally and meeting with their instructor between iterations. 
+Some of the exercises may require serveral days to complete. Learners should consider building solutions incrementally and meeting with their instructor between iterations.
 
 The [first](https://github.com/enova/saigo/tree/master/exercise-000-prep) exercise asks learners to go through Caleb
 Doxsey's book [An Introduction to Programming in Go](https://www.golang-book.com/books/intro). Learners should schedule regular
@@ -40,11 +40,11 @@ an instructor.
 ### Engineering Tasks
 
 Engineering tasks will ask you to write some code, usually an application of some sort.
-As mentioned above, learners should routinely schedule brief (ten-minute) meetings with instructors
+As mentioned above, when unsure about their approach, learners may schedule brief meetings with instructors
 while working on engineering-tasks. You will want to avoid situations where you write 150 lines of code
 only to find your solution has issues. Even learning can be agile.
 
-Be ready to demo your application when it is completed. Instructors want to see it in action!
+Once your task is complete, create a PR so one of the saigo bucketeers can take a look. If changes are requested, address them and push up a new commit onto the same PR.
 
 ## Recommended Resources
 
