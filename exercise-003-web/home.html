@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Names!</title>
+</head>
+<body>
+<form action="/submit" method="post">
+    <input type="text" name="name" placeholder="Enter Name">
+    <input type="submit">
+</form>
+<h2>Names Previously Submitted</h2>
+<table>
+    {{range .Respondents}}
+        <tr> <td>{{.Name}}</td><td>{{.Count}}</td></tr>
+    {{end}}
+</table>
+</body>
+</html>
