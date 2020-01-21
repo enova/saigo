@@ -39,6 +39,7 @@ func TestSubmittingMultiple(t *testing.T) {
 	assert := assert.New(t)
 	reader := strings.NewReader("name=Luke")
 	req, _ := http.NewRequest("POST","/submit",reader)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	w := httptest.NewRecorder()
 	submit(w,req)
 	w = httptest.NewRecorder()
