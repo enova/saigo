@@ -46,6 +46,50 @@ func (c *Circle) Area() float64 {
 }
 
 ////////////////
+//  Rectangle  //
+////////////////
+
+type Rectangle struct {
+	sideA float64
+	sideB float64
+}
+
+func (r *Rectangle) Name() string {
+	return "Rectangle"
+}
+
+func (r *Rectangle) Perimeter() float64 {
+	return r.sideA * 2.0 + r.sideB * 2.0
+}
+
+func (r *Rectangle) Area() float64 {
+	return r.sideA * r.sideB
+}
+
+
+////////////////
+//  Rhombus  //
+////////////////
+
+type Rhombus struct {
+	side float64
+	diagonalA float64
+	diagonalB float64
+}
+
+func (r *Rhombus) Name() string {
+	return "Rhombus"
+}
+
+func (r *Rhombus) Perimeter() float64 {
+	return r.side * 4.0
+}
+
+func (r *Rhombus) Area() float64 {
+	return r.diagonalA * r.diagonalB / 2
+}
+
+////////////////
 // Efficiency //
 ////////////////
 
@@ -70,4 +114,17 @@ func main() {
 
 	c := Circle{radius: 10.0}
 	Efficiency(&c)
+
+	r := Rectangle{
+		sideA: 5,
+		sideB: 12,
+	}
+	Efficiency(&r)
+
+	rh := Rhombus{
+		side:      10,
+		diagonalA: 30,
+		diagonalB: 40,
+	}
+	Efficiency(&rh)
 }
