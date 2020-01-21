@@ -6,9 +6,12 @@ func main() {
 	game := &Game{}
 
 	// Add Players
-	game.Add(&Player{})
-	game.Add(&Player{})
-	game.Add(&Player{})
+	game.Add(&RandoRex{})
+	game.Add(&RandoRex{})
+	game.Add(&Flipper{Rock,Paper})
+	game.Add(&Obsessed{Paper})
+	game.Add(&Obsessed{Scissors})
+	game.Add(&Cyclone{})
 
 	// A Thousand Round-Robins!
 	for i := 0; i < 1000; i++ {
