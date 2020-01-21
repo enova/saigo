@@ -15,12 +15,12 @@ const (
 
 // Game ...
 type Game struct {
-	players []*Player
+	players []Player
 	points  []int
 }
 
 // Add adds a player to the game
-func (g *Game) Add(p *Player) {
+func (g *Game) Add(p Player) {
 	g.players = append(g.players, p)
 	g.points = append(g.points, 0)
 }
@@ -33,7 +33,7 @@ func (g *Game) RoundRobin() {
 
 	n := len(g.players)
 
-	// For Each Player
+	// For Each RandoRex
 	for i := 0; i < n-1; i++ {
 
 		// For Each Opponent
