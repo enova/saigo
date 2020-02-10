@@ -6,12 +6,8 @@ import (
 	"time"
 )
 
-func inOneYear() time.Time {
-	return time.Now().AddDate(1, 0, 0)
-}
-
 func poke(w http.ResponseWriter, r *http.Request) {
-	cookie := http.Cookie{Name: "username", Value: "gopher", Expires: inOneYear()}
+	cookie := http.Cookie{Name: "username", Value: "gopher", Expires: time.Now().AddDate(1, 0, 0)}
 	http.SetCookie(w, &cookie)
 	fmt.Fprintf(w, "Just set cookie named 'username' set to 'gopher'")
 }

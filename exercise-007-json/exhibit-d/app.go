@@ -15,7 +15,11 @@ type Phone struct {
 
 var allPhones []Phone
 
-func setup() {
+func phones(w http.ResponseWriter, r *http.Request) {
+	json.NewEncoder(w).Encode(allPhones)
+}
+
+func main() {
 	data, err := ioutil.ReadFile("phones.json")
 	if err != nil {
 		fmt.Println("Error reading phones.json")
@@ -26,14 +30,7 @@ func setup() {
 	if err != nil {
 		fmt.Println("Error in unmarshalling phones")
 	}
-}
 
-func phones(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(allPhones)
-}
-
-func main() {
-	setup()
 	http.HandleFunc("/phones", phones)
 	http.ListenAndServe(":8080", nil)
 }
