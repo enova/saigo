@@ -9,8 +9,12 @@ import (
 )
 
 func main() {
+	if len(os.Args) != 2 {
+		fmt.Println("Incorrect number of input arguments", len(os.Args))
+		return
+	}
 	filename := os.Args[1]
-	data, err := ioutil.ReadFile(string(filename))
+	data, err := ioutil.ReadFile(filename)
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

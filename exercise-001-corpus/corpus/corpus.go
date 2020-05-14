@@ -26,19 +26,15 @@ func splitWord(word string) []string {
 
 // Analyze takes in a string of words and returns a slice sorted in reverse numerical order based on the word count
 func Analyze(data string) []WordCount {
-	words := splitWord(string(data))
+	words := splitWord(data)
 
 	wordMap := make(map[string]int)
 	wordSlice := make([]WordCount, 0)
 
 	for index, word := range words {
 		words[index] = strings.ToLower(word)
-		if _, ok := wordMap[words[index]]; ok {
+		if words[index] != "" {
 			wordMap[words[index]]++
-		} else {
-			if words[index] != "" {
-				wordMap[words[index]] = 1
-			}
 		}
 	}
 
