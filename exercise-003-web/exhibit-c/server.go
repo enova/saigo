@@ -13,7 +13,7 @@ type View struct {
 var homeT = template.Must(template.ParseFiles("exhibit-c/home.html"))
 
 func home(w http.ResponseWriter, r *http.Request) {
-	v := View{Name: "Gopher", Age: 8}
+	v := View{Name: "Gopher", Age: 8} //data object to which template will be applied
 	homeT.Execute(w, &v)
 }
 
