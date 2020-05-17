@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <title>Name submission app</title>
+
+  <body>
+    <form action="/home" method="POST">
+      <input type="text" name="username" placeholder="Enter Name">
+      <input type="submit" value="Sign-Up"/>
+    </form>
+    <h3>Signed up names</h3>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Frequency</th>
+      </tr>
+      {{range $name, $frequency := .NameFrequencies}}
+      <tr>
+        <td>{{$name}}</td>
+        <td>{{$frequency}}</td>
+      </tr>
+      {{end}}
+    </table>
+  </body>
+</html>
