@@ -13,10 +13,12 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func signup(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	username := r.Form.Get("username")
+	r.ParseForm() // parses the raw query from the URL and updates r.Form
+	// for POST requests, it also parses the request body as a form and puts the results into both r.PostForm and r.Form
+
+	username := r.Form.Get("username") // get first value associated with the "username" key
 	msg := "Hey " + username + ", did you try to sign-up?"
-	fmt.Fprintf(w, msg)
+	fmt.Fprintf(w, msg) // write msg to w
 }
 
 func main() {
