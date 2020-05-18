@@ -45,6 +45,27 @@ func (c *Circle) Area() float64 {
 	return math.Pi * c.radius * c.radius
 }
 
+////////////
+// Rectangle //
+////////////
+
+type Rectangle struct {
+	length float64
+	width  float64
+}
+
+func (r *Rectangle) Name() string {
+	return "Rectangle"
+}
+
+func (r *Rectangle) Perimeter() float64 {
+	return 4 * (r.length + r.width)
+}
+
+func (r *Rectangle) Area() float64 {
+	return r.length * r.width
+}
+
 ////////////////
 // Efficiency //
 ////////////////
@@ -70,4 +91,7 @@ func main() {
 
 	c := Circle{radius: 10.0}
 	Efficiency(&c)
+
+	r := Rectangle{length: 8.0, width: 5.0}
+	Efficiency(&r)
 }
