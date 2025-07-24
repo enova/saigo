@@ -58,4 +58,4 @@ There's no need to read through all of these resources but keep them handy when 
 
 # Licensing
 Saigo is released by [Enova](http://www.enova.com) under the
-[MIT License](https://github.com/enova/saigo/blob/master/LICENSE).
+[MIT License](LICENSE.txt).
